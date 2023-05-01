@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
+    public UnityEvent<string,float> onMoving;
 
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 10;
@@ -116,10 +118,11 @@ public class PlayerMovement : MonoBehaviour
 
         float targetSpeed = moveX * moveSpeed;
         float speedDiff = targetSpeed - rb.velocity.x;
-        float accelrate = (Mathf.Abs(targetSpeed) > 0.01f) ? acceleration : decceleration;
-        float movement = Mathf.Pow(Mathf.Abs(speedDiff) * accelrate, velPower) * Mathf.Sign(speedDiff);
+        float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? acceleration : decceleration;
+        float movement = Mathf.Pow(Mathf.Abs(speedDiff) * accelRate, velPower) * Mathf.Sign(speedDiff);
 
         rb.AddForce(movement * Vector2.right);
+        onMoving.Invoke("Speed" ,rb.velocity.magnitude);
     }
 
     private void AddFriction()
