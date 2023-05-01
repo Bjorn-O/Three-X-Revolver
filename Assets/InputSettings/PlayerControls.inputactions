@@ -20,13 +20,13 @@
                     "id": "58451dad-cb4d-4e9f-ab12-56676a360b8c",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press(behavior=2)",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "JumpReleased",
+                    "name": "Crouch",
                     "type": "Button",
-                    "id": "15cced88-fedd-4947-89d8-69d39ed1aefa",
+                    "id": "8b5a42cc-e657-4775-9ceb-112ae060a6a1",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -80,12 +80,12 @@
                 },
                 {
                     "name": "",
-                    "id": "8115dd54-39e3-4f0e-95ad-5d1cbd6d1a96",
-                    "path": "<Keyboard>/space",
-                    "interactions": "Press(behavior=1)",
+                    "id": "803d1969-4a77-49b9-820a-f0140f2a7013",
+                    "path": "<Keyboard>/s",
+                    "interactions": "Press(behavior=2)",
                     "processors": "",
                     "groups": "",
-                    "action": "JumpReleased",
+                    "action": "Crouch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

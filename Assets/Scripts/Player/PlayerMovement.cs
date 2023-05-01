@@ -28,6 +28,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     private bool isGrounded = false;
     private bool isJumping = false;
+    private bool isCrouching = false;
+    public delegate void CrouchStarted();
+    public CrouchStarted OnCrouchStarted;
+    public delegate void CrouchReleased();
+    public CrouchReleased OnCrouchReleased;
 
     // Start is called before the first frame update
     void Start()
@@ -67,8 +72,18 @@ public class PlayerMovement : MonoBehaviour
         moveX = inputValue.Get<float>();
     }
 
-    private void OnJump()
+    private void OnJump(InputValue inputValue)
     {
+        //Cut jump short when releasing the jump button mid-jump
+        if (!inputValue.isPressed)
+        {
+            if (rb.velocity.y > 0)
+            {
+                rb.AddForce(Vector2.down * rb.velocity.y * (1 - jumpCutMultiplier), ForceMode2D.Impulse);
+            }
+            return;
+        }
+
         if (!isGrounded)
         {
             return;
@@ -78,16 +93,27 @@ public class PlayerMovement : MonoBehaviour
         isJumping = true;
     }
 
-    private void OnJumpReleased()
+    private void OnCrouch(InputValue inputValue)
     {
-        if (rb.velocity.y > 0)
+        if (inputValue.isPressed)
         {
-            rb.AddForce(Vector2.down * rb.velocity.y * (1 - jumpCutMultiplier), ForceMode2D.Impulse);
+            OnCrouchStarted();
+            isCrouching = true;
+        }
+        else
+        {
+            OnCrouchReleased();
+            isCrouching = false;
         }
     }
 
     private void Move()
     {
+        if (isCrouching && isGrounded)
+        {
+            return;
+        }
+
         float targetSpeed = moveX * moveSpeed;
         float speedDiff = targetSpeed - rb.velocity.x;
         float accelrate = (Mathf.Abs(targetSpeed) > 0.01f) ? acceleration : decceleration;
@@ -98,16 +124,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void AddFriction()
     {
-        //Don't add friction when trying to move
-        if (Mathf.Abs(moveX) > 0)
+        //Add friction when not moving or when crouching
+        if (Mathf.Abs(moveX) < 0.01f || isCrouching)
         {
-            return;
-        }
+            float amount = Mathf.Min(Mathf.Abs(rb.velocity.x), Mathf.Abs(frictionAmount));
+            amount *= Mathf.Sign(rb.velocity.x);
 
-        float amount = Mathf.Min(Mathf.Abs(rb.velocity.x), Mathf.Abs(frictionAmount));
-        amount *= Mathf.Sign(rb.velocity.x);
-
-        rb.AddForce(Vector2.right * -amount, ForceMode2D.Impulse);
+            rb.AddForce(Vector2.right * -amount, ForceMode2D.Impulse);
+        }        
     }
 
     private void JumpGravity()
