@@ -8,7 +8,7 @@ public class AfterImage : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     public delegate void Release(AfterImage afterImage);
     public Release OnRelease;
-    private Color startColor;
+    private float startOpacity;
 
     public void Setup(string sortingLayerName, int orderInLayer)
     {
@@ -16,14 +16,15 @@ public class AfterImage : MonoBehaviour
         spriteRenderer.sortingLayerName = sortingLayerName;
         spriteRenderer.sortingOrder = orderInLayer;
 
-        startColor = spriteRenderer.color;
+        startOpacity = spriteRenderer.color.a;
+        TimeManager.instance.OnTimeResume += () => OnRelease(this);
     }
 
-    public void Show(Vector3 scale, Sprite sprite, float timeToDissapear)
+    public void Show(Vector3 scale, Sprite sprite, float timeToDissapear, Color color)
     {
         transform.localScale = scale;
         spriteRenderer.sprite = sprite;
-        spriteRenderer.color = startColor;
+        spriteRenderer.color = new Color(color.r, color.g, color.b, startOpacity);
 
         StartCoroutine(WaitToRelease(timeToDissapear));
         StartCoroutine(FadeOut(timeToDissapear));
@@ -39,6 +40,7 @@ public class AfterImage : MonoBehaviour
     private IEnumerator FadeOut(float timeToDissapear)
     {
         float currentTime = 0;
+        Color startColor = spriteRenderer.color;
         Color endColor = startColor;
         endColor.a = 0;
 

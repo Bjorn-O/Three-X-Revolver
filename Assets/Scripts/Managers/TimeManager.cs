@@ -5,8 +5,16 @@ using UnityEngine;
 public class TimeManager : MonoBehaviour
 {
     public static TimeManager instance;
-    [SerializeField] private float timeScale = 0.1f;
+    [SerializeField] private float timeScale = 1;
+    [SerializeField] private float timeStopScale = 0.1f;
+    [SerializeField] private float timeToStopTime = 1f;
     public float TimeScale { get { return timeScale; } }
+
+    public delegate void TimeStop();
+    public TimeStop OnTimeStop;
+
+    public delegate void TimeResume();
+    public TimeResume OnTimeResume;
 
     void Awake()
     {
@@ -22,15 +30,23 @@ public class TimeManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    // Start is called before the first frame update
-    void Start()
+    //TODO is only for debug
+    private void Start()
     {
-        
+        Invoke(nameof(StopTime), timeToStopTime);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void StopTime()
     {
-        
+        timeScale = timeStopScale;
+
+        OnTimeStop?.Invoke();
+    }
+
+    public void ResumeTime()
+    {
+        timeScale = 1;
+
+        OnTimeResume?.Invoke();
     }
 }

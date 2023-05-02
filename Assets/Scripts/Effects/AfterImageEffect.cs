@@ -12,12 +12,23 @@ public class AfterImageEffect : MonoBehaviour
     [SerializeField] private float dissapearTime = 0.6f;
     [SerializeField] private float createDistance = 0.5f;
     [SerializeField] private int orderInLayer = -1;
+    [SerializeField] private Color afterImageColor = Color.white;
     private bool startCreating = false;
+    private bool setupDone;
     private Vector2 prevAfterImagePos;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
+        Setup();
+    }
+
+    public void Setup()
+    {
+        if (setupDone)
+            return;
+
+        setupDone = true;
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         afterImagePool = new ObjectPool<AfterImage>(() => {
@@ -32,8 +43,8 @@ public class AfterImageEffect : MonoBehaviour
             Destroy(afterImage.gameObject);
         }, false, 10, 20);
 
-
-        StartEffect();
+        TimeManager.instance.OnTimeStop += StartEffect;
+        TimeManager.instance.OnTimeResume += StopEffect;
     }
 
     private void Update()
@@ -47,10 +58,15 @@ public class AfterImageEffect : MonoBehaviour
         }
     }
 
-    private void StartEffect()
+    public void StartEffect()
     {
         CreateAfterImage();
         startCreating = true;
+    }
+
+    public void StopEffect()
+    {
+        startCreating = false;
     }
 
     private void CreateAfterImage()
@@ -59,7 +75,7 @@ public class AfterImageEffect : MonoBehaviour
 
         afterImage.transform.position = transform.position;
         prevAfterImagePos = transform.position;
-        afterImage.Show(transform.localScale, spriteRenderer.sprite, dissapearTime);
+        afterImage.Show(transform.localScale, spriteRenderer.sprite, dissapearTime, afterImageColor);
         afterImage.OnRelease = ReleaseAfterImage;
     }
 

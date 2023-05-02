@@ -6,15 +6,19 @@ using UnityEngine.Pool;
 
 public class PlayerShoot : MonoBehaviour
 {
+    private static int MAX_AMMO = 3;
+
     private Camera cam;
     [SerializeField] private Transform cursor;
+    [SerializeField] private Transform shootPoint;
     private Vector2 aimPos;
 
     [SerializeField] private Bullet bulletPrefab;
     private ObjectPool<Bullet> bulletPool;
 
     [SerializeField] private float bulletSpeed = 5;
-    [SerializeField] private float ammo = 3;
+    [SerializeField] private int ammo = 3;
+    [SerializeField] private float shootDelayOnResume = 0.1f;
 
     // Start is called before the first frame update
     void Start()
@@ -48,15 +52,35 @@ public class PlayerShoot : MonoBehaviour
 
     private void OnShoot()
     {
-        if (ammo <= 0)
+        if (ammo <= 0 || TimeManager.instance.TimeScale >= 1)
             return;
 
         Bullet bullet = bulletPool.Get();
 
-        Vector2 currentPos = new Vector2(transform.position.x, transform.position.y);
+        Vector2 currentPos = new Vector2(shootPoint.position.x, shootPoint.position.y);
 
-        bullet.Shoot((aimPos - currentPos).normalized, bulletSpeed * TimeManager.instance.TimeScale, currentPos);
+        bullet.Shoot((aimPos - currentPos).normalized, 
+            bulletSpeed * TimeManager.instance.TimeScale, 
+            currentPos, 
+            (MAX_AMMO - ammo) * shootDelayOnResume);
 
-        ammo -= 1; 
+        bullet.OnRelease = ReleaseBullet;
+
+        ammo -= 1;
+
+        if (ammo <= 0)
+        {
+            TimeManager.instance.ResumeTime();
+        }
+    }
+
+    private void ReleaseBullet(Bullet bullet)
+    {
+        bulletPool.Release(bullet);
+    }
+
+    private void OnDebugResumeTime()
+    {
+        TimeManager.instance.ResumeTime();
     }
 }
