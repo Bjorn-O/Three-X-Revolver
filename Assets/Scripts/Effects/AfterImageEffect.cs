@@ -11,11 +11,13 @@ public class AfterImageEffect : MonoBehaviour
     [SerializeField] private AfterImage afterImagePrefab;
     [SerializeField] private float dissapearTime = 0.6f;
     [SerializeField] private float createDistance = 0.5f;
+    [SerializeField] private float rotationCreateDistance = 0;
     [SerializeField] private int orderInLayer = -1;
     [SerializeField] private Color startColor = Color.white;
     private bool startCreating = false;
     private bool setupDone = false;
     private Vector2 prevAfterImagePos;
+    private Quaternion prevAfterImageRotation;
 
     // Start is called before the first frame update
     private void Start()
@@ -54,9 +56,10 @@ public class AfterImageEffect : MonoBehaviour
             return;
 
         if (Vector2.Distance(prevAfterImagePos, transform.position) > createDistance)
-        {
             CreateAfterImage();
-        }
+
+        if (rotationCreateDistance > 0 && Quaternion.Angle(prevAfterImageRotation, transform.rotation) > rotationCreateDistance)
+            CreateAfterImage();
     }
 
     public void StartEffect()
@@ -80,6 +83,7 @@ public class AfterImageEffect : MonoBehaviour
         afterImageTransform.position = targetTransform.position;
         afterImageTransform.rotation = targetTransform.rotation;
         prevAfterImagePos = targetTransform.position;
+        prevAfterImageRotation = targetTransform.rotation;
         afterImage.Show(targetTransform.lossyScale, spriteRenderer.sprite, dissapearTime, startColor);
         afterImage.OnRelease = ReleaseAfterImage;
     }

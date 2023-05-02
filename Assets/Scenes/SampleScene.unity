@@ -636,6 +636,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 786881622712122065, guid: f073c9b025ab26b42b15b6dde035710a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 786881622712122065, guid: f073c9b025ab26b42b15b6dde035710a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 786881622712122065, guid: f073c9b025ab26b42b15b6dde035710a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 786881623900106856, guid: f073c9b025ab26b42b15b6dde035710a, type: 3}
       propertyPath: m_Name
       value: PlayerBarry
@@ -3132,6 +3144,7 @@ MonoBehaviour:
   afterImagePrefab: {fileID: 2128568164361675598, guid: 80af060e1dfdf614ba988a9fd3d56429, type: 3}
   dissapearTime: 20
   createDistance: 0.25
+  rotationCreateDistance: 0
   orderInLayer: -1
   startColor: {r: 0.5471698, g: 0.5471698, b: 0.5471698, a: 1}
 --- !u!1 &2113672746
