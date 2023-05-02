@@ -12,23 +12,12 @@ public class AfterImageEffect : MonoBehaviour
     [SerializeField] private float dissapearTime = 0.6f;
     [SerializeField] private float createDistance = 0.5f;
     [SerializeField] private int orderInLayer = -1;
-    [SerializeField] private Color afterImageColor = Color.white;
     private bool startCreating = false;
-    private bool setupDone;
     private Vector2 prevAfterImagePos;
 
     // Start is called before the first frame update
-    private void Start()
+    void Start()
     {
-        Setup();
-    }
-
-    public void Setup()
-    {
-        if (setupDone)
-            return;
-
-        setupDone = true;
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         afterImagePool = new ObjectPool<AfterImage>(() => {
@@ -43,8 +32,8 @@ public class AfterImageEffect : MonoBehaviour
             Destroy(afterImage.gameObject);
         }, false, 10, 20);
 
-        TimeManager.instance.OnTimeStop += StartEffect;
-        TimeManager.instance.OnTimeResume += StopEffect;
+
+        StartEffect();
     }
 
     private void Update()
@@ -58,24 +47,23 @@ public class AfterImageEffect : MonoBehaviour
         }
     }
 
-    public void StartEffect()
+    private void StartEffect()
     {
         CreateAfterImage();
         startCreating = true;
     }
 
-    public void StopEffect()
-    {
-        startCreating = false;
-    }
-
     private void CreateAfterImage()
     {
-        AfterImage afterImage = afterImagePool.Get();
+        var afterImage = afterImagePool.Get();
 
-        afterImage.transform.position = transform.position;
-        prevAfterImagePos = transform.position;
-        afterImage.Show(transform.localScale, spriteRenderer.sprite, dissapearTime, afterImageColor);
+        var targetTransform = transform;
+        var afterImageTransform = afterImage.transform;
+        
+        afterImageTransform.position = targetTransform.position;
+        afterImageTransform.rotation = targetTransform.rotation;
+        prevAfterImagePos = targetTransform.position;
+        afterImage.Show(targetTransform.lossyScale, spriteRenderer.sprite, dissapearTime);
         afterImage.OnRelease = ReleaseAfterImage;
     }
 
