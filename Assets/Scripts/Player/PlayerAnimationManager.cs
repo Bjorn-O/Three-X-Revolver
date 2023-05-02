@@ -9,7 +9,7 @@ public class PlayerAnimationManager : MonoBehaviour
     private static readonly int Speed = Animator.StringToHash("Speed");
     private static readonly int IsGrounded = Animator.StringToHash("IsGrounded");
     private static readonly int IsJumping = Animator.StringToHash("IsJumping");
-    private static readonly int IsMovingForward = Animator.StringToHash("peen");
+    private static readonly int IsMovingForward = Animator.StringToHash("IsMovingForward");
 
     public void SetAnimSpeed(float value)
     {
