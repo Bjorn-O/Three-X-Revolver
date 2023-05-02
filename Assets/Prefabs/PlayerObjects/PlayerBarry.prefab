@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4781616468911161814}
   - component: {fileID: 1370997574752702232}
+  - component: {fileID: 1836005311979015429}
   m_Layer: 0
   m_Name: 4_1
   m_TagString: Untagged
@@ -84,6 +85,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1836005311979015429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 371529387994774253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b41e2bb27d4e2c14e844d3cbca8f4fff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  afterImagePrefab: {fileID: 2128568164361675598, guid: 80af060e1dfdf614ba988a9fd3d56429, type: 3}
+  dissapearTime: 0.6
+  createDistance: 0.5
+  orderInLayer: -3
+  startColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &786881622712122064
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,7 +212,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 318482203
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 2
   m_Sprite: {fileID: -179824701, guid: 362ed75e79ceb6349a126c773a37c3d7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -296,6 +314,7 @@ MonoBehaviour:
   dissapearTime: 0.6
   createDistance: 0.5
   orderInLayer: -1
+  startColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &786881622971323425
 GameObject:
   m_ObjectHideFlags: 0
@@ -368,7 +387,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 318482203
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: a6cf245f7f8d01342b719a43c05312f5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -396,7 +415,8 @@ MonoBehaviour:
   afterImagePrefab: {fileID: 2128568164361675598, guid: 80af060e1dfdf614ba988a9fd3d56429, type: 3}
   dissapearTime: 0.6
   createDistance: 0.5
-  orderInLayer: -1
+  orderInLayer: -2
+  startColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &786881623686495392
 GameObject:
   m_ObjectHideFlags: 0
@@ -574,7 +594,7 @@ MonoBehaviour:
   groundCheckSize: {x: 0.6, y: 0.1}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 136
 --- !u!114 &786881623900106863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -618,9 +638,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cursor: {fileID: 0}
+  shootPoint: {fileID: 3902359121758171106}
   bulletPrefab: {fileID: 1627755297450906473, guid: f68e46b01e9390c47a8416ed031de307, type: 3}
   bulletSpeed: 5
   ammo: 3
+  shootDelayOnResume: 0.1
 --- !u!1 &6291021205274678768
 GameObject:
   m_ObjectHideFlags: 0
@@ -714,7 +736,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3902359121758171106}
-  - component: {fileID: 4420283877331020941}
   m_Layer: 6
   m_Name: GunPos
   m_TagString: Untagged
@@ -739,19 +760,3 @@ Transform:
   m_Father: {fileID: 786881622712122065}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4420283877331020941
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6332828098647219385}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b41e2bb27d4e2c14e844d3cbca8f4fff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  afterImagePrefab: {fileID: 2128568164361675598, guid: 80af060e1dfdf614ba988a9fd3d56429, type: 3}
-  dissapearTime: 0.6
-  createDistance: 0.5
-  orderInLayer: -1

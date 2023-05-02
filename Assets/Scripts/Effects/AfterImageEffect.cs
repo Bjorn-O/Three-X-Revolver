@@ -12,12 +12,23 @@ public class AfterImageEffect : MonoBehaviour
     [SerializeField] private float dissapearTime = 0.6f;
     [SerializeField] private float createDistance = 0.5f;
     [SerializeField] private int orderInLayer = -1;
+    [SerializeField] private Color startColor = Color.white;
     private bool startCreating = false;
+    private bool setupDone = false;
     private Vector2 prevAfterImagePos;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
+        Setup();
+    }
+
+    public void Setup()
+    {
+        if (setupDone)
+            return;
+
+        setupDone = true;
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         afterImagePool = new ObjectPool<AfterImage>(() => {
@@ -47,7 +58,7 @@ public class AfterImageEffect : MonoBehaviour
         }
     }
 
-    private void StartEffect()
+    public void StartEffect()
     {
         CreateAfterImage();
         startCreating = true;
@@ -63,7 +74,7 @@ public class AfterImageEffect : MonoBehaviour
         afterImageTransform.position = targetTransform.position;
         afterImageTransform.rotation = targetTransform.rotation;
         prevAfterImagePos = targetTransform.position;
-        afterImage.Show(targetTransform.lossyScale, spriteRenderer.sprite, dissapearTime);
+        afterImage.Show(targetTransform.lossyScale, spriteRenderer.sprite, dissapearTime, startColor);
         afterImage.OnRelease = ReleaseAfterImage;
     }
 
