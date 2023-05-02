@@ -5,24 +5,27 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     private Rigidbody2D rb;
-    private LineRenderer line;
+    private TrailRenderer trail;
     private AfterImageEffect afterImageEffect;
     public delegate void Release(Bullet bullet);
     public Release OnRelease;
     private float shootDelayOnResume;
     [SerializeField] private LayerMask raycastLayerMask;
     [SerializeField] private float missDistance;
-    [SerializeField] private float lineDissapearTime = 0.1f;
+    [SerializeField] private float onReleaseTimeWhenHit = 0.1f;
+    [SerializeField] private float trailSubs = 4;
+
+    private bool bulletAlreadyHit;
 
     public void Setup()
     {
-        line = GetComponentInChildren<LineRenderer>(true);
-        line.gameObject.SetActive(false);
+        trail = GetComponent<TrailRenderer>();
+        trail.enabled = false;
         rb = GetComponent<Rigidbody2D>();
         afterImageEffect = GetComponentInChildren<AfterImageEffect>();
         afterImageEffect.Setup();
 
-        TimeManager.instance.OnTimeResume += () => Invoke(nameof(TurnIntoRaycast), shootDelayOnResume);
+        TimeManager.instance.OnTimeResume += () => Invoke(nameof(ShowTrail), shootDelayOnResume);
     }
 
     public void Shoot(Vector2 dir, float speed, Vector2 startPosition, float delayOnResume)
@@ -37,46 +40,62 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //Ignore player and platform collision
-        if (collision.gameObject.layer == 6 || collision.gameObject.layer == 7)
+        BulletHit(collision);
+    }
+
+    private void ShowTrail()
+    {
+        if (bulletAlreadyHit)
             return;
 
-        BulletHit(collision);
+        rb.isKinematic = true;
+        trail.enabled = true;
+        afterImageEffect.gameObject.SetActive(false);
+
+        TurnIntoRaycast();
     }
 
     private void TurnIntoRaycast()
     {
         Vector3 dir = rb.velocity.normalized;
-        rb.isKinematic = true;
-        afterImageEffect.gameObject.SetActive(false);
 
         RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, 999, raycastLayerMask);
-        line.transform.SetParent(null, true);
-        line.gameObject.SetActive(true);
 
         if (hit)
         {
             print(hit.collider);
-            Vector3[] positions = { transform.position, hit.point };
-            line.SetPositions(positions);
 
-            BulletHit(hit.collider);
-
-            Invoke(nameof(DisableBulletLine), lineDissapearTime);
+            StartCoroutine(PlaceBulletAlongTrail(transform.position, hit.point, hit.collider));
             return;
         }
-        
-        Vector3 missPos = transform.position + (dir * missDistance);
 
-        Vector3[] misPositions = { transform.position, missPos };
+        Vector3 missPos = dir * missDistance;
+        StartCoroutine(PlaceBulletAlongTrail(transform.position, missPos, null));
+    }
 
-        line.SetPositions(misPositions);
+    private IEnumerator PlaceBulletAlongTrail(Vector3 startPos, Vector3 targetPos, Collider2D col)
+    {
+        for (int i = 0; i < trailSubs; i++)
+        {
+            transform.position = Vector2.Lerp(startPos, targetPos, 1 / trailSubs * i);
+            yield return null;
+        }
 
-        Invoke(nameof(DisableBulletLine), lineDissapearTime);
+        transform.position = targetPos;
+        yield return null;
+
+        if (col != null)
+        {
+            BulletHit(col);
+        }
+
+        Invoke(nameof(BulletRelease), onReleaseTimeWhenHit);
     }
 
     private void BulletHit(Collider2D collider)
     {
+        trail.emitting = false;
+        bulletAlreadyHit = true;
         GameObject hitObj = collider.gameObject;
 
         if (collider.attachedRigidbody != null)
@@ -85,15 +104,20 @@ public class Bullet : MonoBehaviour
         switch (hitObj.tag)
         {
             case "Enemy":
-                print("Hit Enemy");
+                hitObj.GetComponent<Enemy>().Kill();
                 break;
         }
 
-        OnRelease(this);
+        FreezeFramer.instance.FreezeFrame();
+
+        if (TimeManager.instance.TimeScale >= 1)
+            Invoke(nameof(BulletRelease), onReleaseTimeWhenHit);
+        else
+            OnRelease(this);
     }
 
-    private void DisableBulletLine()
+    private void BulletRelease()
     {
-        line.gameObject.SetActive(false);
+        OnRelease(this);
     }
 }

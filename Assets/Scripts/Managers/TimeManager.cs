@@ -8,6 +8,7 @@ public class TimeManager : MonoBehaviour
     [SerializeField] private float timeScale = 1;
     [SerializeField] private float timeStopScale = 0.1f;
     [SerializeField] private float timeToStopTime = 1f;
+    [SerializeField] private float resumeTimeTransitionTime = 1f;
     public float TimeScale { get { return timeScale; } }
 
     public delegate void TimeStop();
@@ -15,6 +16,9 @@ public class TimeManager : MonoBehaviour
 
     public delegate void TimeResume();
     public TimeResume OnTimeResume;
+
+    public delegate void TimeResumeTransition();
+    public TimeResumeTransition OnTimeResumeTransition;
 
     void Awake()
     {
@@ -45,6 +49,16 @@ public class TimeManager : MonoBehaviour
 
     public void ResumeTime()
     {
+        OnTimeResumeTransition?.Invoke();
+        Time.timeScale = 0;
+
+        StartCoroutine(nameof(SetTimeToNormal));
+    }
+
+    private IEnumerator SetTimeToNormal()
+    {
+        yield return new WaitForSecondsRealtime(resumeTimeTransitionTime);
+        Time.timeScale = 1;
         timeScale = 1;
 
         OnTimeResume?.Invoke();

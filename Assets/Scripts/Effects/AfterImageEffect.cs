@@ -45,7 +45,7 @@ public class AfterImageEffect : MonoBehaviour
 
 
         TimeManager.instance.OnTimeStop += StartEffect;
-        TimeManager.instance.OnTimeResume += StopEffect;
+        TimeManager.instance.OnTimeResumeTransition += StopEffect;
     }
 
     private void Update()
