@@ -111,6 +111,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 786881622712122065}
+  - component: {fileID: 593036933146640544}
   m_Layer: 6
   m_Name: ArmPivot
   m_TagString: Untagged
@@ -125,7 +126,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 786881622712122064}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.8954012, w: 0.44526044}
   m_LocalPosition: {x: 0.043, y: 0.22, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -134,7 +135,19 @@ Transform:
   - {fileID: 3902359121758171106}
   m_Father: {fileID: 786881622712529732}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 127.12}
+--- !u!114 &593036933146640544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 786881622712122064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26273b567560bdb4787437a09c7f9680, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &786881622712529735
 GameObject:
   m_ObjectHideFlags: 0
@@ -238,7 +251,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.165}
+  m_Offset: {x: -0.012200721, y: 0.1675122}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.6, y: 0}
@@ -249,7 +262,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.16038634, y: 0.34}
+  m_Size: {x: 0.13598491, y: 0.33497563}
   m_EdgeRadius: 0
 --- !u!95 &786881622712529755
 Animator:
@@ -297,7 +310,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b87b99c142f047278c9c90ea3afa290b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteTransform: {fileID: 786881622712529732}
+  OnMovingBackwards:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 786881622712529752}
+        m_TargetAssemblyTypeName: PlayerAnimationManager, Assembly-CSharp
+        m_MethodName: SetRunDirection
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  tolerance: 1
 --- !u!114 &4375040996560320546
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -566,12 +594,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  onChangeDirection:
+  onMoveDirection:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2770825424965093109}
-        m_TargetAssemblyTypeName: SpriteScaler, Assembly-CSharp
-        m_MethodName: FlipSprite
+        m_TargetAssemblyTypeName: PlayerFlipper, Assembly-CSharp
+        m_MethodName: RunDirection
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -608,7 +636,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: 6a4b6d3aa1e46a245b8100d657d57832, type: 3}
-  m_NotificationBehavior: 0
+  m_NotificationBehavior: 1
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -637,6 +665,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c5ad52dc87d58f43b45b9999b96c754, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnMouseAimEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 593036933146640544}
+        m_TargetAssemblyTypeName: ArmAim, Assembly-CSharp
+        m_MethodName: LookAtCrosshair
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2770825424965093109}
+        m_TargetAssemblyTypeName: PlayerFlipper, Assembly-CSharp
+        m_MethodName: LookSideCheck
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnStickAimEvent:
+    m_PersistentCalls:
+      m_Calls: []
   cursor: {fileID: 0}
   shootPoint: {fileID: 3902359121758171106}
   bulletPrefab: {fileID: 1627755297450906473, guid: f68e46b01e9390c47a8416ed031de307, type: 3}
