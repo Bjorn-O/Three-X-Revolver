@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     public UnityEvent<bool> onJumpEvent;
     public UnityEvent<bool> onCrouchEvent;
     public UnityEvent<bool> onGroundEvent;
-    public UnityEvent<bool> onChangeDirection;
+    [FormerlySerializedAs("onChangeDirection")] public UnityEvent<bool> onMoveDirection;
 
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 10;
@@ -41,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
     private bool _isGrounded;
     private bool _isJumping;
     private bool _isCrouching;
-    private bool _isFacingRight;
+    private bool _isMovingRight;
 
     public delegate void CrouchStarted();
     public CrouchStarted OnCrouchStarted;
@@ -60,6 +60,7 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         GroundCheck();
+        onMoveDirection?.Invoke(_isMovingRight);
     }
 
     private void GroundCheck()
@@ -81,6 +82,7 @@ public class PlayerMovement : MonoBehaviour
         Move();
         AddFriction();
         JumpGravity();
+        
     }
 
     private void OnMove(InputValue inputValue)
@@ -90,12 +92,10 @@ public class PlayerMovement : MonoBehaviour
         switch (_moveX)
         {
             case > 0:
-                _isFacingRight = true;
-                onChangeDirection?.Invoke(_isFacingRight);
+                _isMovingRight = true;
                 break;
             case < 0:
-                _isFacingRight = false;
-                onChangeDirection?.Invoke(_isFacingRight);
+                _isMovingRight = false;
                 break;
             case 0:
                 break;
@@ -145,6 +145,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_isCrouching && _isGrounded)
         {
+            onMoveEvent?.Invoke(0);
             return;
         }
 
