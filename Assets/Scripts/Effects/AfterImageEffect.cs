@@ -44,7 +44,8 @@ public class AfterImageEffect : MonoBehaviour
         }, false, 10, 20);
 
 
-        StartEffect();
+        TimeManager.instance.OnTimeStop += StartEffect;
+        TimeManager.instance.OnTimeResume += StopEffect;
     }
 
     private void Update()
@@ -62,6 +63,11 @@ public class AfterImageEffect : MonoBehaviour
     {
         CreateAfterImage();
         startCreating = true;
+    }
+
+    public void StopEffect()
+    {
+        startCreating = false;
     }
 
     private void CreateAfterImage()
