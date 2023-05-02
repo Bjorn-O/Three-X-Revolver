@@ -107,8 +107,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 786881622712122064}
-  m_LocalRotation: {x: -0, y: -0, z: 0.12444907, w: 0.992226}
-  m_LocalPosition: {x: 0.050000012, y: 0.2, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.043, y: 0.22, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -116,7 +116,7 @@ Transform:
   - {fileID: 3902359121758171106}
   m_Father: {fileID: 786881622712529732}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 14.298}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &786881622712529735
 GameObject:
   m_ObjectHideFlags: 0
@@ -130,6 +130,8 @@ GameObject:
   - component: {fileID: 786881622712529754}
   - component: {fileID: 786881622712529755}
   - component: {fileID: 786881622712529752}
+  - component: {fileID: 2770825424965093109}
+  - component: {fileID: 4375040996560320546}
   m_Layer: 6
   m_Name: PlayerSprite
   m_TagString: Untagged
@@ -265,6 +267,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 786881622712529755}
+--- !u!114 &2770825424965093109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 786881622712529735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b87b99c142f047278c9c90ea3afa290b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteTransform: {fileID: 786881622712529732}
+--- !u!114 &4375040996560320546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 786881622712529735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b41e2bb27d4e2c14e844d3cbca8f4fff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  afterImagePrefab: {fileID: 2128568164361675598, guid: 80af060e1dfdf614ba988a9fd3d56429, type: 3}
+  dissapearTime: 0.6
+  createDistance: 0.5
+  orderInLayer: -1
 --- !u!1 &786881622971323425
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,6 +306,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4186763503883703398}
   - component: {fileID: 786881622971323431}
+  - component: {fileID: 5970046100442620999}
   m_Layer: 6
   m_Name: ArmSprite
   m_TagString: Untagged
@@ -349,6 +381,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5970046100442620999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 786881622971323425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b41e2bb27d4e2c14e844d3cbca8f4fff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  afterImagePrefab: {fileID: 2128568164361675598, guid: 80af060e1dfdf614ba988a9fd3d56429, type: 3}
+  dissapearTime: 0.6
+  createDistance: 0.5
+  orderInLayer: -1
 --- !u!1 &786881623686495392
 GameObject:
   m_ObjectHideFlags: 0
@@ -392,6 +440,7 @@ GameObject:
   - component: {fileID: 786881623900106862}
   - component: {fileID: 786881623900106860}
   - component: {fileID: 786881623900106863}
+  - component: {fileID: 5549661287993397427}
   m_Layer: 6
   m_Name: PlayerBarry
   m_TagString: Player
@@ -449,12 +498,60 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9aa90944f9faafd4687d65e8c95e1037, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onMoving:
+  onMoveEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 786881622712529752}
         m_TargetAssemblyTypeName: PlayerAnimationManager, Assembly-CSharp
-        m_MethodName: SetAnimFloat
+        m_MethodName: SetAnimSpeed
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onJumpEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 786881622712529752}
+        m_TargetAssemblyTypeName: PlayerAnimationManager, Assembly-CSharp
+        m_MethodName: SetAnimJumping
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onCrouchEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  onGroundEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 786881622712529752}
+        m_TargetAssemblyTypeName: PlayerAnimationManager, Assembly-CSharp
+        m_MethodName: SetAnimGrounded
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onChangeDirection:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2770825424965093109}
+        m_TargetAssemblyTypeName: SpriteScaler, Assembly-CSharp
+        m_MethodName: FlipSprite
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -466,14 +563,15 @@ MonoBehaviour:
         m_CallState: 2
   moveSpeed: 5
   acceleration: 8
-  decceleration: 8
-  velPower: 1.2
-  frictionAmount: 0.2
-  jumpForce: 6
-  fallGravityMultiplier: 1.9
-  jumpCutMultiplier: 0.6
+  deceleration: 8
+  velPower: 0.96
+  frictionAmount: 0.22
+  jumpHeight: 2
+  jumpTimeToApex: 0.45
+  fallGravityMultiplier: 2
+  jumpCutMultiplier: 0.4
   groundCheckPoint: {fileID: 786881623686495393}
-  groundCheckSize: {x: 0.8, y: 0.1}
+  groundCheckSize: {x: 0.6, y: 0.1}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -507,6 +605,22 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &5549661287993397427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 786881623900106856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c5ad52dc87d58f43b45b9999b96c754, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cursor: {fileID: 0}
+  bulletPrefab: {fileID: 1627755297450906473, guid: f68e46b01e9390c47a8416ed031de307, type: 3}
+  bulletSpeed: 5
+  ammo: 3
 --- !u!1 &6291021205274678768
 GameObject:
   m_ObjectHideFlags: 0
@@ -600,6 +714,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3902359121758171106}
+  - component: {fileID: 4420283877331020941}
   m_Layer: 6
   m_Name: GunPos
   m_TagString: Untagged
@@ -624,3 +739,19 @@ Transform:
   m_Father: {fileID: 786881622712122065}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4420283877331020941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6332828098647219385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b41e2bb27d4e2c14e844d3cbca8f4fff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  afterImagePrefab: {fileID: 2128568164361675598, guid: 80af060e1dfdf614ba988a9fd3d56429, type: 3}
+  dissapearTime: 0.6
+  createDistance: 0.5
+  orderInLayer: -1

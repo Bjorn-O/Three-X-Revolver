@@ -55,11 +55,15 @@ public class AfterImageEffect : MonoBehaviour
 
     private void CreateAfterImage()
     {
-        AfterImage afterImage = afterImagePool.Get();
+        var afterImage = afterImagePool.Get();
 
-        afterImage.transform.position = transform.position;
-        prevAfterImagePos = transform.position;
-        afterImage.Show(transform.localScale, spriteRenderer.sprite, dissapearTime);
+        var targetTransform = transform;
+        var afterImageTransform = afterImage.transform;
+        
+        afterImageTransform.position = targetTransform.position;
+        afterImageTransform.rotation = targetTransform.rotation;
+        prevAfterImagePos = targetTransform.position;
+        afterImage.Show(targetTransform.lossyScale, spriteRenderer.sprite, dissapearTime);
         afterImage.OnRelease = ReleaseAfterImage;
     }
 

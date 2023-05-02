@@ -3,69 +3,77 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private Rigidbody2D rb;
-    public UnityEvent<string,float> onMoving;
+    private Rigidbody2D _rb;
+    
+    public UnityEvent<float> onMoveEvent;
+    public UnityEvent<bool> onJumpEvent;
+    public UnityEvent<bool> onCrouchEvent;
+    public UnityEvent<bool> onGroundEvent;
+    public UnityEvent<bool> onChangeDirection;
 
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 10;
     [SerializeField] private float acceleration = 7;
-    [SerializeField] private float decceleration = 7;
+    [SerializeField] private float deceleration = 7;
     [SerializeField] private float velPower = 0.9f;
     [Space]
     [SerializeField] private float frictionAmount = 0.2f;
-    private float moveX;
+    private float _moveX;
 
     [Header("Jumping")]
     [SerializeField] private float jumpHeight = 4.5f;
     [SerializeField] private float jumpTimeToApex = 0.45f;
     [SerializeField] private float fallGravityMultiplier = 1.9f;
     [Range(0, 1)] [SerializeField] private float jumpCutMultiplier = 0.1f;
-    private float gravityScale;
-    private float gravityStrength;
-    private float jumpForce;
+    private float _gravityScale;
+    private float _gravityStrength;
+    private float _jumpForce;
 
     [Header("Checks")]
     [SerializeField] private Transform groundCheckPoint;
     [SerializeField] private Vector2 groundCheckSize;
     [SerializeField] private LayerMask groundLayer;
-    private bool isGrounded = false;
-    private bool isJumping = false;
-    private bool isCrouching = false;
+    private float _lastInput;
+    private bool _isGrounded;
+    private bool _isJumping;
+    private bool _isCrouching;
+    private bool _isFacingRight;
+
     public delegate void CrouchStarted();
     public CrouchStarted OnCrouchStarted;
     public delegate void CrouchReleased();
     public CrouchReleased OnCrouchReleased;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        gravityStrength = -(2 * jumpHeight) / (jumpTimeToApex * jumpTimeToApex);
-        gravityScale = gravityStrength / Physics2D.gravity.y;
+        _rb = GetComponent<Rigidbody2D>();
+        _gravityStrength = -(2 * jumpHeight) / (jumpTimeToApex * jumpTimeToApex);
+        _gravityScale = _gravityStrength / Physics2D.gravity.y;
 
-        jumpForce = Mathf.Abs(gravityStrength) * jumpTimeToApex;
+        _jumpForce = Mathf.Abs(_gravityStrength) * jumpTimeToApex;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         GroundCheck();
     }
 
     private void GroundCheck()
     {
-        if (Physics2D.OverlapBox(groundCheckPoint.position, groundCheckSize, 0, groundLayer) && !isJumping)
+        if (Physics2D.OverlapBox(groundCheckPoint.position, groundCheckSize, 0, groundLayer) && !_isJumping)
         {
-            if (!isGrounded)
-                isJumping = false;
-
-            isGrounded = true;
+            _isGrounded = true;
+            onGroundEvent?.Invoke(_isGrounded);
         }
         else
-            isGrounded = false;
+        {
+            _isGrounded = false;
+            onGroundEvent?.Invoke(_isGrounded);
+        }
     }
 
     private void FixedUpdate()
@@ -77,7 +85,21 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnMove(InputValue inputValue)
     {
-        moveX = inputValue.Get<float>();
+        _moveX = inputValue.Get<float>();
+
+        switch (_moveX)
+        {
+            case > 0:
+                _isFacingRight = true;
+                onChangeDirection?.Invoke(_isFacingRight);
+                break;
+            case < 0:
+                _isFacingRight = false;
+                onChangeDirection?.Invoke(_isFacingRight);
+                break;
+            case 0:
+                break;
+        }
     }
 
     private void OnJump(InputValue inputValue)
@@ -85,23 +107,22 @@ public class PlayerMovement : MonoBehaviour
         //Cut jump short when releasing the jump button mid-jump
         if (!inputValue.isPressed)
         {
-            if (rb.velocity.y > 0)
+            if (_rb.velocity.y > 0)
             {
-                rb.AddForce(Vector2.down * rb.velocity.y * (1 - jumpCutMultiplier), ForceMode2D.Impulse);
+                _rb.AddForce(Vector2.down * _rb.velocity.y * (1 - jumpCutMultiplier), ForceMode2D.Impulse);
             }
             return;
         }
 
-        if (!isGrounded)
-            return;
+        if (!_isGrounded) return;
 
-        float force = jumpForce;
-        if (rb.velocity.y < 0)
-            force -= rb.velocity.y;
+        var force = _jumpForce;
+        if (_rb.velocity.y < 0) force -= _rb.velocity.y;
 
-        rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        _rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
 
-        isJumping = true;
+        _isJumping = true;
+        onJumpEvent.Invoke(_isJumping);
     }
 
     private void OnCrouch(InputValue inputValue)
@@ -109,58 +130,63 @@ public class PlayerMovement : MonoBehaviour
         if (inputValue.isPressed)
         {
             OnCrouchStarted();
-            isCrouching = true;
+            _isCrouching = true;
+            onCrouchEvent?.Invoke(_isCrouching);
         }
         else
         {
             OnCrouchReleased();
-            isCrouching = false;
+            _isCrouching = false;
+            onCrouchEvent?.Invoke(_isCrouching);
         }
     }
 
     private void Move()
     {
-        if (isCrouching && isGrounded)
+        if (_isCrouching && _isGrounded)
         {
             return;
         }
 
-        float targetSpeed = moveX * moveSpeed;
-        float speedDiff = targetSpeed - rb.velocity.x;
-        float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? acceleration : decceleration;
-        float movement = Mathf.Pow(Mathf.Abs(speedDiff) * accelRate, velPower) * Mathf.Sign(speedDiff);
+        var targetSpeed = _moveX * moveSpeed;
+        var speedDiff = targetSpeed - _rb.velocity.x;
+        var accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? acceleration : deceleration;
+        var movement = Mathf.Pow(Mathf.Abs(speedDiff) * accelRate, velPower) * Mathf.Sign(speedDiff);
 
-        rb.AddForce(movement * Vector2.right);
-        onMoving.Invoke("Speed" ,rb.velocity.magnitude);
+        _rb.AddForce(movement * Vector2.right);
+        onMoveEvent.Invoke(Mathf.Abs(_rb.velocity.x));
     }
 
     private void AddFriction()
     {
         //Add friction when not moving or when crouching
-        if (Mathf.Abs(moveX) < 0.01f || isCrouching)
+        if (Mathf.Abs(_moveX) < 0.01f || _isCrouching)
         {
-            float amount = Mathf.Min(Mathf.Abs(rb.velocity.x), Mathf.Abs(frictionAmount));
-            amount *= Mathf.Sign(rb.velocity.x);
+            float amount = Mathf.Min(Mathf.Abs(_rb.velocity.x), Mathf.Abs(frictionAmount));
+            amount *= Mathf.Sign(_rb.velocity.x);
 
-            rb.AddForce(Vector2.right * -amount, ForceMode2D.Impulse);
+            _rb.AddForce(Vector2.right * -amount, ForceMode2D.Impulse);
         }        
     }
 
     private void JumpGravity()
     {
-        if (rb.velocity.y < 0)
+        if (_rb.velocity.y < 0)
         {
-            rb.gravityScale = gravityScale * fallGravityMultiplier;
+            _rb.gravityScale = _gravityScale * fallGravityMultiplier;
 
-            if (isJumping)
-                isJumping = false;
+            if (!_isJumping) return;
+            _isJumping = false;
+            onJumpEvent?.Invoke(_isJumping);
         }
         else
         {
-            if (rb.velocity.y == 0)
-                isJumping = false;
-
-            rb.gravityScale = gravityScale;
+            if (_rb.velocity.y == 0)
+            {
+                _isJumping = false;
+                onJumpEvent?.Invoke(_isJumping);
+            }
+            _rb.gravityScale = _gravityScale;
         }
     }
 
