@@ -19,10 +19,13 @@ public class PlayerMovement : MonoBehaviour
     private float moveX;
 
     [Header("Jumping")]
-    [SerializeField] private float jumpForce = 15;
+    [SerializeField] private float jumpHeight = 4.5f;
+    [SerializeField] private float jumpTimeToApex = 0.45f;
     [SerializeField] private float fallGravityMultiplier = 1.9f;
     [Range(0, 1)] [SerializeField] private float jumpCutMultiplier = 0.1f;
     private float gravityScale;
+    private float gravityStrength;
+    private float jumpForce;
 
     [Header("Checks")]
     [SerializeField] private Transform groundCheckPoint;
@@ -40,7 +43,10 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        gravityScale = rb.gravityScale;
+        gravityStrength = -(2 * jumpHeight) / (jumpTimeToApex * jumpTimeToApex);
+        gravityScale = gravityStrength / Physics2D.gravity.y;
+
+        jumpForce = Mathf.Abs(gravityStrength) * jumpTimeToApex;
     }
 
     // Update is called once per frame
@@ -87,11 +93,14 @@ public class PlayerMovement : MonoBehaviour
         }
 
         if (!isGrounded)
-        {
             return;
-        }
+
+        float force = jumpForce;
+        if (rb.velocity.y < 0)
+            force -= rb.velocity.y;
 
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+
         isJumping = true;
     }
 

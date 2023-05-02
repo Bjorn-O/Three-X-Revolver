@@ -44,3 +44,6 @@ TagManager:
   - name: Player
     uniqueID: 318482203
     locked: 0
+  - name: DrawFront
+    uniqueID: 3257873633
+    locked: 0
