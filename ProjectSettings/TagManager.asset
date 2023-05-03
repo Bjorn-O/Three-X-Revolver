@@ -42,6 +42,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: BG_UI
+    uniqueID: 877535557
+    locked: 0
   - name: NPC
     uniqueID: 3595631089
     locked: 0

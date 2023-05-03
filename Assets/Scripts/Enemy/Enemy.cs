@@ -6,6 +6,11 @@ public class Enemy : MonoBehaviour
 {
     private Animator anim;
 
+    public delegate void Death();
+    public Death onDeath;
+
+    private bool alreadyDead;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +22,11 @@ public class Enemy : MonoBehaviour
 
     public void Kill()
     {
+        if (alreadyDead)
+            return;
+
+        alreadyDead = true;
         anim.SetTrigger("Die");
+        onDeath?.Invoke();
     }
 }
