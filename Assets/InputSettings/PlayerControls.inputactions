@@ -29,7 +29,7 @@
                     "id": "8b5a42cc-e657-4775-9ceb-112ae060a6a1",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press(behavior=2)",
                     "initialStateCheck": false
                 },
                 {
@@ -137,6 +137,39 @@
                     "isPartOfComposite": true
                 },
                 {
+                    "name": "1D Axis Arrows",
+                    "id": "fd39ba5d-1bbe-40cd-9bbb-444a13594081",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "639c0c9a-6bb2-4b31-a225-1a46c4c24e0a",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "fbbe9c3e-2a9a-44d7-bbf4-134a4897b395",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "",
                     "id": "8e451bdf-7dd6-41ea-9e22-d8313dc552ee",
                     "path": "<Keyboard>/space",
@@ -162,7 +195,7 @@
                     "name": "",
                     "id": "803d1969-4a77-49b9-820a-f0140f2a7013",
                     "path": "<Keyboard>/s",
-                    "interactions": "Press(behavior=2)",
+                    "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
                     "action": "Crouch",
@@ -176,6 +209,17 @@
                     "interactions": "Press(behavior=2)",
                     "processors": "",
                     "groups": "Gamepad",
+                    "action": "Crouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f04df57e-f10a-444e-a300-5bf96ea1dc61",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
                     "action": "Crouch",
                     "isComposite": false,
                     "isPartOfComposite": false

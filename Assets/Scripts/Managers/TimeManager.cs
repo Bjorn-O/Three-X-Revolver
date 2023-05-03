@@ -42,6 +42,9 @@ public class TimeManager : MonoBehaviour
 
     public void StopTime()
     {
+        SoundManager.instance.PlayMusic("TimeStop");
+        SoundManager.instance.PlaySoundEffect("Time", "TimeStop");
+
         timeScale = timeStopScale;
 
         OnTimeStop?.Invoke();
@@ -51,6 +54,8 @@ public class TimeManager : MonoBehaviour
     {
         OnTimeResumeTransition?.Invoke();
         Time.timeScale = 0;
+        SoundManager.instance.StopSoundEffect();
+        SoundManager.instance.PlaySoundEffect("Time", "TimeStop");
 
         StartCoroutine(nameof(SetTimeToNormal));
     }
@@ -60,6 +65,8 @@ public class TimeManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(resumeTimeTransitionTime);
         Time.timeScale = 1;
         timeScale = 1;
+        SoundManager.instance.StopSoundEffect();
+        SoundManager.instance.PlayMusic("Main");
 
         OnTimeResume?.Invoke();
     }

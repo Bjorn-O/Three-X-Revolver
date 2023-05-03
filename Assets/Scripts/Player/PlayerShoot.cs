@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -10,7 +11,6 @@ public class PlayerShoot : MonoBehaviour
 
     public UnityEvent<Vector3> OnMouseAimEvent;
     public UnityEvent<Vector2> OnStickAimEvent;
-
     
     private Camera _cam;
     [SerializeField] private Transform cursor;
@@ -23,10 +23,13 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField] private float bulletSpeed = 5;
     [SerializeField] private int ammo = 3;
     [SerializeField] private float shootDelayOnResume = 0.1f;
+    [SerializeField] private Animator muzzleFlash;
+    [SerializeField] private float muzzleSpeedTimeStop = 0.25f;
 
     // Start is called before the first frame update
     private void Start()
     {
+        muzzleFlash.gameObject.SetActive(false);
         _bulletPool = new ObjectPool<Bullet>(() => {
             var bullet = Instantiate(bulletPrefab);
             bullet.Setup();
@@ -42,6 +45,10 @@ public class PlayerShoot : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = false;
         _cam = Camera.main;
+
+
+        TimeManager.instance.OnTimeStop += () => muzzleFlash.speed = muzzleSpeedTimeStop;
+        TimeManager.instance.OnTimeResume += () => muzzleFlash.speed = 1;
     }
 
     private void Update()
@@ -81,6 +88,9 @@ public class PlayerShoot : MonoBehaviour
             (MAX_AMMO - ammo) * shootDelayOnResume);
 
         bullet.OnRelease = ReleaseBullet;
+        SoundManager.instance.PlaySoundEffect("Player", "Shoot");
+        muzzleFlash.gameObject.SetActive(false);
+        muzzleFlash.gameObject.SetActive(true);
 
         ammo -= 1;
 

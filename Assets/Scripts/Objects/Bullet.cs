@@ -51,6 +51,7 @@ public class Bullet : MonoBehaviour
         rb.isKinematic = true;
         trail.enabled = true;
         afterImageEffect.gameObject.SetActive(false);
+        SoundManager.instance.PlaySoundEffect("Bullet", "FlyBy");
 
         TurnIntoRaycast();
     }
@@ -104,7 +105,11 @@ public class Bullet : MonoBehaviour
         switch (hitObj.tag)
         {
             case "Enemy":
+                SoundManager.instance.PlaySoundEffect("Bullet", "HitEnemy");
                 hitObj.GetComponent<Enemy>().Kill();
+                break;
+            default:
+                SoundManager.instance.PlaySoundEffect("Bullet", "Impact");
                 break;
         }
 
