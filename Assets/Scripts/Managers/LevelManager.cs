@@ -34,7 +34,7 @@ public class LevelManager : MonoBehaviour
         }
         
         _gateAnimator = endGate.GetComponent<Animator>();
-        _levelStarted = false;
+        _levelStarted = true;
         _timeRemaining = levelTime;
     }
 
@@ -78,7 +78,7 @@ public class LevelManager : MonoBehaviour
     public void RemoveActiveObject(GameObject inactiveObject)
     {
         _activeGameplayObjects.Remove(inactiveObject);
-        if (_activeGameplayObjects.Count <= 0)
+        if (_activeGameplayObjects.Count <= 0 && _timeRemaining <= 0)
         {
             StopLevel();
         }
@@ -90,6 +90,7 @@ public class LevelManager : MonoBehaviour
         var minutes = intTime / 60;
         var seconds = intTime % 60;
         var fraction = time * 1000;
+        fraction -= 0.01f;
         fraction = fraction % 1000;
         return $"{minutes:00} : {seconds:00} : {fraction / 10:00}";
     }
