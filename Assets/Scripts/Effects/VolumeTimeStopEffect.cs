@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class VolumeTimeStopEffect : MonoBehaviour
 {
-    private Animator anim;
+    private Animator _anim;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        anim = GetComponent<Animator>();
+        _anim = GetComponent<Animator>();
 
-        TimeManager.instance.OnTimeStop += () => anim.SetTrigger("StopTime");
-        TimeManager.instance.OnTimeResumeTransition += () => anim.SetTrigger("ResumeTime");
+        TimeManager.instance.OnTimeStop += () => _anim.SetTrigger("StopTime");
+        TimeManager.instance.OnTimeResumeTransition += () => _anim.SetTrigger("ResumeTime");
     }
 }

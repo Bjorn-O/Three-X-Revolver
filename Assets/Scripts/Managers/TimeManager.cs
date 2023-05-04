@@ -20,7 +20,7 @@ public class TimeManager : MonoBehaviour
     public delegate void TimeResumeTransition();
     public TimeResumeTransition OnTimeResumeTransition;
 
-    void Awake()
+    private void Awake()
     {
         if (instance == null)
         {
@@ -33,7 +33,7 @@ public class TimeManager : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
     }
-
+    
     //TODO is only for debug
     private void Start()
     {
