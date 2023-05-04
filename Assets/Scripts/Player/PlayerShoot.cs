@@ -4,13 +4,14 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.Pool;
+using UnityEngine.Serialization;
 
 public class PlayerShoot : MonoBehaviour
 {
     private const int MAX_AMMO = 3;
 
-    public UnityEvent<Vector3> OnMouseAimEvent;
-    public UnityEvent<Vector2> OnStickAimEvent;
+    public UnityEvent<Vector3> onMouseAimEvent;
+    public UnityEvent<Vector2> onStickAimEvent;
     
     private Camera _cam;
     [SerializeField] private Transform cursor;
@@ -53,7 +54,7 @@ public class PlayerShoot : MonoBehaviour
 
     private void Update()
     {
-        OnMouseAimEvent?.Invoke(_aimPos);
+        onMouseAimEvent?.Invoke(_aimPos);
     }
 
     private void OnMouseAim(InputValue inputValue)

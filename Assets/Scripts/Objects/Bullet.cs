@@ -4,38 +4,38 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    private Rigidbody2D rb;
-    private TrailRenderer trail;
-    private AfterImageEffect afterImageEffect;
+    private Rigidbody2D _rb;
+    private TrailRenderer _trail;
+    private AfterImageEffect _afterImageEffect;
     public delegate void Release(Bullet bullet);
     public Release OnRelease;
-    private float shootDelayOnResume;
+    private float _shootDelayOnResume;
     [SerializeField] private LayerMask raycastLayerMask;
     [SerializeField] private float missDistance;
     [SerializeField] private float onReleaseTimeWhenHit = 0.1f;
     [SerializeField] private float trailSubs = 4;
 
-    private bool bulletAlreadyHit;
+    private bool _bulletAlreadyHit;
 
     public void Setup()
     {
-        trail = GetComponent<TrailRenderer>();
-        trail.enabled = false;
-        rb = GetComponent<Rigidbody2D>();
-        afterImageEffect = GetComponentInChildren<AfterImageEffect>();
-        afterImageEffect.Setup();
+        _trail = GetComponent<TrailRenderer>();
+        _trail.enabled = false;
+        _rb = GetComponent<Rigidbody2D>();
+        _afterImageEffect = GetComponentInChildren<AfterImageEffect>();
+        _afterImageEffect.Setup();
 
-        TimeManager.instance.OnTimeResume += () => Invoke(nameof(ShowTrail), shootDelayOnResume);
+        TimeManager.instance.OnTimeResume += () => Invoke(nameof(ShowTrail), _shootDelayOnResume);
     }
 
     public void Shoot(Vector2 dir, float speed, Vector2 startPosition, float delayOnResume)
     {
         transform.position = startPosition;
-        afterImageEffect.gameObject.SetActive(true);
-        afterImageEffect.StartEffect();
-        shootDelayOnResume = delayOnResume;
+        _afterImageEffect.gameObject.SetActive(true);
+        _afterImageEffect.StartEffect();
+        _shootDelayOnResume = delayOnResume;
 
-        rb.AddForce(dir * speed, ForceMode2D.Impulse);
+        _rb.AddForce(dir * speed, ForceMode2D.Impulse);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -45,12 +45,12 @@ public class Bullet : MonoBehaviour
 
     private void ShowTrail()
     {
-        if (bulletAlreadyHit)
+        if (_bulletAlreadyHit)
             return;
 
-        rb.isKinematic = true;
-        trail.enabled = true;
-        afterImageEffect.gameObject.SetActive(false);
+        _rb.isKinematic = true;
+        _trail.enabled = true;
+        _afterImageEffect.gameObject.SetActive(false);
         SoundManager.instance.PlaySoundEffect("Bullet", "FlyBy");
 
         TurnIntoRaycast();
@@ -58,7 +58,7 @@ public class Bullet : MonoBehaviour
 
     private void TurnIntoRaycast()
     {
-        Vector3 dir = rb.velocity.normalized;
+        Vector3 dir = _rb.velocity.normalized;
 
         RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, 999, raycastLayerMask);
 
@@ -95,8 +95,8 @@ public class Bullet : MonoBehaviour
 
     private void BulletHit(Collider2D collider)
     {
-        trail.emitting = false;
-        bulletAlreadyHit = true;
+        _trail.emitting = false;
+        _bulletAlreadyHit = true;
         GameObject hitObj = collider.gameObject;
 
         if (collider.attachedRigidbody != null)
