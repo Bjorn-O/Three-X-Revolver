@@ -36,6 +36,7 @@ public class Bullet : MonoBehaviour
         _shootDelayOnResume = delayOnResume;
 
         _rb.AddForce(dir * speed, ForceMode2D.Impulse);
+        LevelManager.Instance.AddActiveObject(gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -150,7 +151,8 @@ public class Bullet : MonoBehaviour
                 if (TimeManager.instance.TimeScale >= 1)
                     Invoke(nameof(BulletRelease), onReleaseTimeWhenHit);
                 else
-                    OnRelease(this);
+                    BulletRelease();
+
                 break;
         }
 
@@ -160,5 +162,6 @@ public class Bullet : MonoBehaviour
     private void BulletRelease()
     {
         OnRelease(this);
+        LevelManager.Instance.RemoveActiveObject(gameObject);
     }
 }

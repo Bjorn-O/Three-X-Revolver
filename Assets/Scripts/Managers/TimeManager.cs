@@ -42,6 +42,9 @@ public class TimeManager : MonoBehaviour
 
     public void StopTime()
     {
+        if (timeScale < 1)
+            return;
+
         SoundManager.instance.PlayMusic("TimeStop");
         SoundManager.instance.PlaySoundEffect("Time", "TimeStop");
 
@@ -52,6 +55,9 @@ public class TimeManager : MonoBehaviour
 
     public void ResumeTime()
     {
+        if (timeScale >= 1)
+            return;
+
         OnTimeResumeTransition?.Invoke();
         Time.timeScale = 0;
         SoundManager.instance.StopSoundEffect();
