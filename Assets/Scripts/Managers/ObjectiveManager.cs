@@ -6,6 +6,7 @@ public class ObjectiveManager : MonoBehaviour
 {
     [SerializeField] private Enemy[] targets;
     [SerializeField] private int targetsKilled;
+    public int targetRemaining;
 
     public delegate void ObjectiveComplete();
     public ObjectiveComplete OnObjectiveComplete;
@@ -37,7 +38,7 @@ public class ObjectiveManager : MonoBehaviour
     private void TargetKilled()
     {
         targetsKilled++;
-
+        targetRemaining = targets.Length - targetsKilled;
         if (targetsKilled >= targets.Length)
         {
             OnObjectiveComplete?.Invoke();
