@@ -15,6 +15,8 @@ public class SlowmoPhysicsObject : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         TimeManager.instance.OnTimeStop += () => { rb.velocity = Vector2.zero; rb.gravityScale = timeStopGravityScale; };
         TimeManager.instance.OnTimeResume += () => { rb.gravityScale = 1; };
+
+        LevelManager.Instance.AddActiveObject(gameObject);
     }
 
     private void FixedUpdate()
@@ -33,12 +35,15 @@ public class SlowmoPhysicsObject : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        //Stop physics if hitting the ground in time stop
+        if (collision.gameObject.layer == 3 && rb.velocity.y < 0)
+        {
+            LevelManager.Instance.RemoveActiveObject(gameObject);
+            rb.isKinematic = TimeManager.instance.TimeScale < 1;
+        }
+
         if (TimeManager.instance.TimeScale >= 1)
             return;
-
-        //Stop physics if hitting the ground
-        if (collision.gameObject.layer == 3 && rb.velocity.y < 0)
-            rb.isKinematic = true;
 
         if (collision.rigidbody == null || !collision.rigidbody.CompareTag("Player"))
             return;
