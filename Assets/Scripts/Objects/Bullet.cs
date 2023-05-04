@@ -137,7 +137,6 @@ public class Bullet : MonoBehaviour
 
     private void BulletHit(Collider2D collider)
     {
-        _trail.emitting = false;
         _bulletAlreadyHit = true;
         GameObject hitObj = collider.gameObject;
 

@@ -6,7 +6,7 @@ public class SlowmoPhysicsObject : MonoBehaviour
 {
     private Rigidbody2D rb;
     [SerializeField] private float checkOffsetY = 0.5f;
-    [SerializeField] private float reverseGravity = -2;
+    [SerializeField] private float reverseGravity = -3.5f;
     [SerializeField] private float timeStopGravityScale = 0.1f;
 
     // Start is called before the first frame update
