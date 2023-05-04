@@ -197,6 +197,10 @@ MonoBehaviour:
       audioClip: {fileID: 8300000, guid: 5f4e74b7a1bbd4e48925c98153d9c0a7, type: 3}
       volume: 1
       loop: 0
+    - name: Spotted
+      audioClip: {fileID: 8300000, guid: db14f157bd93a7944a8a046ce1549fec, type: 3}
+      volume: 1
+      loop: 0
   - name: Time
     sounds:
     - name: TimeStop

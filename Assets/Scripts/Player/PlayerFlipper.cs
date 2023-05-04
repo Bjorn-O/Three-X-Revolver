@@ -31,10 +31,10 @@ public class PlayerFlipper : MonoBehaviour
         if (_isLookingRight && !movingRight || !_isLookingRight && movingRight)
         {
             OnMovingBackwards.Invoke(1);
-            print("Running backwards");
+            //print("Running backwards");
             return;
         }
-        print("Running forwards");
+        //print("Running forwards");
         OnMovingBackwards.Invoke(0);
     }
 }

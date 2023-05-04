@@ -13,7 +13,8 @@ public class Bullet : MonoBehaviour
     [SerializeField] private LayerMask raycastLayerMask;
     [SerializeField] private float missDistance;
     [SerializeField] private float onReleaseTimeWhenHit = 0.1f;
-    [SerializeField] private float trailSubs = 4;
+    [SerializeField] private int trailSubs = 4;
+    [SerializeField] private List<Vector2> allHitPos = new List<Vector2>();
 
     private bool _bulletAlreadyHit;
 
@@ -30,6 +31,8 @@ public class Bullet : MonoBehaviour
 
     public void Shoot(Vector2 dir, float speed, Vector2 startPosition, float delayOnResume)
     {
+        _bulletAlreadyHit = false;
+        _trail.emitting = true;
         transform.position = startPosition;
         _afterImageEffect.gameObject.SetActive(true);
         _afterImageEffect.StartEffect();
@@ -60,13 +63,27 @@ public class Bullet : MonoBehaviour
     {
         Vector3 dir = _rb.velocity.normalized;
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, 999, raycastLayerMask);
+        RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, dir, 999, raycastLayerMask);
 
-        if (hit)
+        if (hits.Length > 0)
         {
-            print(hit.collider);
+            List<RaycastHit2D> hitsUntilSolid = new List<RaycastHit2D>();
 
-            StartCoroutine(PlaceBulletAlongTrail(transform.position, hit.point, hit.collider));
+            foreach (RaycastHit2D hit in hits)
+            {
+                hitsUntilSolid.Add(hit);
+
+                GameObject hitObj = hit.collider.gameObject;
+                if (hit.collider.attachedRigidbody != null)
+                    hitObj = hit.collider.attachedRigidbody.gameObject;
+
+                if (!hitObj.CompareTag("Enemy"))
+                    break;
+            }
+
+            RaycastHit2D[] hitsUntilSolidArray = hitsUntilSolid.ToArray();
+
+            StartCoroutine(PlaceBulletAlongTrail(transform.position, hitsUntilSolidArray[hitsUntilSolidArray.Length - 1].point, hitsUntilSolidArray));
             return;
         }
 
@@ -74,21 +91,46 @@ public class Bullet : MonoBehaviour
         StartCoroutine(PlaceBulletAlongTrail(transform.position, missPos, null));
     }
 
-    private IEnumerator PlaceBulletAlongTrail(Vector3 startPos, Vector3 targetPos, Collider2D col)
+    private IEnumerator PlaceBulletAlongTrail(Vector3 startPos, Vector3 targetPos, RaycastHit2D[] hits)
     {
-        for (int i = 0; i < trailSubs; i++)
+        int length = hits.Length > trailSubs ? hits.Length : trailSubs;
+        int hitPositionsUsed = 0;
+
+        for (int i = 0; i < length; i++)
         {
-            transform.position = Vector2.Lerp(startPos, targetPos, 1 / trailSubs * i);
+            Vector2 hitPos = hits != null ? hits[hitPositionsUsed].point : Vector2.zero;
+            Vector2 lerpPos = hits.Length < trailSubs ? Vector2.Lerp(startPos, targetPos, 1 / (float)length * i) : Vector2.zero;
+
+            float hitDist = Vector2.Distance(transform.position, hitPos);
+            float lerpDist = hits.Length < trailSubs ?  Vector2.Distance(transform.position, lerpPos) : Mathf.Infinity;
+
+            //Debug.Log(hitPos + " dist: " + hitDist + " lerpPos: " + lerpPos + " lerpDist: "+ lerpDist + " transPos: " + transform.position +  " start: " + startPos +" target: " + targetPos);
+
+            if (hits != null && (length == hits.Length || hitDist <= lerpDist))
+            {
+                BulletHit(hits[hitPositionsUsed].collider);
+                hitPositionsUsed++;
+                transform.position = hitPos;
+            }
+            else
+                transform.position = lerpPos;
+
+            allHitPos.Add(transform.position);
             yield return null;
         }
 
         transform.position = targetPos;
         yield return null;
 
-        if (col != null)
+        if (hits != null)
         {
-            BulletHit(col);
+            for (int i = hitPositionsUsed; i < hits.Length; i++)
+            {
+                BulletHit(hits[i].collider);
+            }
         }
+
+        _trail.emitting = false;
 
         Invoke(nameof(BulletRelease), onReleaseTimeWhenHit);
     }
@@ -102,6 +144,8 @@ public class Bullet : MonoBehaviour
         if (collider.attachedRigidbody != null)
             hitObj = collider.attachedRigidbody.gameObject;
 
+        //Debug.Log("Bullet hit obj: " + hitObj + " and bullet delay is: " + shootDelayOnResume);
+
         switch (hitObj.tag)
         {
             case "Enemy":
@@ -110,15 +154,15 @@ public class Bullet : MonoBehaviour
                 break;
             default:
                 SoundManager.instance.PlaySoundEffect("Bullet", "Impact");
+
+                if (TimeManager.instance.TimeScale >= 1)
+                    Invoke(nameof(BulletRelease), onReleaseTimeWhenHit);
+                else
+                    OnRelease(this);
                 break;
         }
 
         FreezeFramer.instance.FreezeFrame();
-
-        if (TimeManager.instance.TimeScale >= 1)
-            Invoke(nameof(BulletRelease), onReleaseTimeWhenHit);
-        else
-            OnRelease(this);
     }
 
     private void BulletRelease()
