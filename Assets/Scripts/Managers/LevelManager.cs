@@ -5,13 +5,20 @@ using System.Globalization;
 using TMPro;
 using UnityEditor.UIElements;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem.iOS;
 
 public class LevelManager : MonoBehaviour
 {
     private static readonly int Open = Animator.StringToHash("Open");
-    public static LevelManager Instance;
     
+    public static LevelManager Instance;
+
+    public UnityEvent onLevelStarted;
+    public UnityEvent onLevelStopped;
+    public UnityEvent onLevelLost;
+    public UnityEvent onLevelWon;
+
     [SerializeField] private float levelTime;
     [SerializeField] private GameObject endGate;
     [SerializeField] private TextMeshProUGUI timerUI;
@@ -41,12 +48,18 @@ public class LevelManager : MonoBehaviour
     private void Update()
     {
         if (!_levelStarted) return;
-        _timeRemaining -= Time.deltaTime;
 
-        if (_timeRemaining <= 0)
+        if (_timeRemaining <= 0 )
         {
-            StopLevel();
             timerUI.text = TimeFormatter(0);
+            if (_activeGameplayObjects.Count <= 0)
+            {
+                StopLevel();
+            }
+        }
+        else
+        {
+            _timeRemaining -= Time.deltaTime;
         }
 
         timerUI.text = TimeFormatter(_timeRemaining);
@@ -55,19 +68,24 @@ public class LevelManager : MonoBehaviour
     public void StartLevel()
     {
         if (_levelStarted) return;
-        TimeManager.instance.OnTimeStop.Invoke();
+        onLevelStarted.Invoke();
+        
         
         _levelStarted = true;
     }
 
     private void StopLevel()
     {
-        if (ObjectiveManager.Instance.targetRemaining > 0)
+        onLevelStopped.Invoke();
+        if (ObjectiveManager.Instance.targetRemaining <= 0)
         {
+            _gateAnimator.SetTrigger(Open);
             _levelStarted = false;
-            // Show Reset Button
+            onLevelWon.Invoke();
+            return;
         }
-        _gateAnimator.SetTrigger(Open);
+        onLevelLost.Invoke();
+        // Show Reset Button
     }
 
     public void AddActiveObject(GameObject activeObject)
@@ -78,10 +96,6 @@ public class LevelManager : MonoBehaviour
     public void RemoveActiveObject(GameObject inactiveObject)
     {
         _activeGameplayObjects.Remove(inactiveObject);
-        if (_activeGameplayObjects.Count <= 0 && _timeRemaining <= 0)
-        {
-            StopLevel();
-        }
     }
 
     private string TimeFormatter(float time)
