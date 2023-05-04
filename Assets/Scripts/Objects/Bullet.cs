@@ -36,6 +36,7 @@ public class Bullet : MonoBehaviour
         _shootDelayOnResume = delayOnResume;
 
         _rb.AddForce(dir * speed, ForceMode2D.Impulse);
+        
         LevelManager.Instance.AddActiveObject(gameObject);
     }
 
@@ -161,7 +162,7 @@ public class Bullet : MonoBehaviour
 
     private void BulletRelease()
     {
-        OnRelease(this);
         LevelManager.Instance.RemoveActiveObject(gameObject);
+        OnRelease(this);
     }
 }

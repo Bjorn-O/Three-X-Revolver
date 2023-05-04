@@ -18,7 +18,7 @@ public class LevelManager : MonoBehaviour
 
     private float _timeRemaining;
     private bool _levelStarted;
-    private List<GameObject> _activeGameplayObjects;
+    private List<GameObject> _activeGameplayObjects = new List<GameObject>();
     private Animator _gateAnimator;
 
     private void Awake()
