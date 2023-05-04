@@ -16,8 +16,6 @@ public class Bullet : MonoBehaviour
     [SerializeField] private int trailSubs = 4;
     [SerializeField] private List<Vector2> allHitPos = new List<Vector2>();
 
-    private bool _bulletAlreadyHit;
-
     public void Setup()
     {
         _trail = GetComponent<TrailRenderer>();
@@ -31,7 +29,6 @@ public class Bullet : MonoBehaviour
 
     public void Shoot(Vector2 dir, float speed, Vector2 startPosition, float delayOnResume)
     {
-        _bulletAlreadyHit = false;
         _trail.emitting = true;
         transform.position = startPosition;
         _afterImageEffect.gameObject.SetActive(true);
@@ -48,9 +45,6 @@ public class Bullet : MonoBehaviour
 
     private void ShowTrail()
     {
-        if (_bulletAlreadyHit)
-            return;
-
         _rb.isKinematic = true;
         _trail.enabled = true;
         _afterImageEffect.gameObject.SetActive(false);
@@ -137,7 +131,6 @@ public class Bullet : MonoBehaviour
 
     private void BulletHit(Collider2D collider)
     {
-        _bulletAlreadyHit = true;
         GameObject hitObj = collider.gameObject;
 
         if (collider.attachedRigidbody != null)

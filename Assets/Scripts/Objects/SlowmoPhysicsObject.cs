@@ -22,6 +22,11 @@ public class SlowmoPhysicsObject : MonoBehaviour
         if (TimeManager.instance.TimeScale >= 1)
             return;
 
+        if (rb.velocity.y >= 0)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, 0);
+        }
+
         Vector2 appliedForce = rb.velocity * (1 - TimeManager.instance.TimeScale);
         rb.AddForce(-appliedForce, ForceMode2D.Impulse);
     }

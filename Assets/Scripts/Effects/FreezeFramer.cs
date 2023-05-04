@@ -31,7 +31,7 @@ public class FreezeFramer : MonoBehaviour
         StartCoroutine(StartFreezeFraming(freezeFrames));
     }
 
-    private IEnumerator StartFreezeFraming(float framesToFreeze)
+    private IEnumerator StartFreezeFraming(int framesToFreeze)
     {
         Time.timeScale = 0;
 
