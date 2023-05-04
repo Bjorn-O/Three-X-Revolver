@@ -10,6 +10,6 @@ public class SetTriggerAnimOnWin : MonoBehaviour
     void Start()
     {
         Animator anim = GetComponent<Animator>();
-        ObjectiveManager.instance.OnObjectiveComplete += () => anim.SetTrigger(triggerName);
+        ObjectiveManager.Instance.OnObjectiveComplete += () => anim.SetTrigger(triggerName);
     }
 }

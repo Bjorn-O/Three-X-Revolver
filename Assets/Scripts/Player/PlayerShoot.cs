@@ -10,6 +10,7 @@ public class PlayerShoot : MonoBehaviour
 {
     private const int MAX_AMMO = 3;
 
+    public UnityEvent onShoot;
     public UnityEvent<Vector3> onMouseAimEvent;
     public UnityEvent<Vector2> onStickAimEvent;
     
@@ -92,7 +93,8 @@ public class PlayerShoot : MonoBehaviour
         SoundManager.instance.PlaySoundEffect("Player", "Shoot");
         muzzleFlash.gameObject.SetActive(false);
         muzzleFlash.gameObject.SetActive(true);
-
+        
+        onShoot?.Invoke();
         ammo -= 1;
 
         if (ammo <= 0)

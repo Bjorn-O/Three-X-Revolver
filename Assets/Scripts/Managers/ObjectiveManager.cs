@@ -10,13 +10,13 @@ public class ObjectiveManager : MonoBehaviour
     public delegate void ObjectiveComplete();
     public ObjectiveComplete OnObjectiveComplete;
 
-    public static ObjectiveManager instance;
+    public static ObjectiveManager Instance;
 
-    void Awake()
+    private void Awake()
     {
-        if (instance == null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
         }
         else
         {
@@ -26,7 +26,7 @@ public class ObjectiveManager : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         foreach (Enemy enemy in targets)
         {
