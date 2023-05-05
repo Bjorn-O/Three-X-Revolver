@@ -48,6 +48,8 @@ public class PlayerMovement : MonoBehaviour
     public delegate void CrouchReleased();
     public CrouchReleased OnCrouchReleased;
 
+    public bool CanMove { get; set; } = true;
+
     private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -143,13 +145,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-        if (_isCrouching && _isGrounded)
-        {
-            onMoveEvent?.Invoke(0);
-            return;
-        }
+        float x = CanMove ? _moveX : 0;
 
-        var targetSpeed = _moveX * moveSpeed;
+        var targetSpeed = x * moveSpeed;
         var speedDiff = targetSpeed - _rb.velocity.x;
         var accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? acceleration : deceleration;
         var movement = Mathf.Pow(Mathf.Abs(speedDiff) * accelRate, velPower) * Mathf.Sign(speedDiff);
@@ -160,8 +158,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void AddFriction()
     {
+        float x = CanMove ? _moveX : 0;
+
         //Add friction when not moving or when crouching
-        if (Mathf.Abs(_moveX) < 0.01f || _isCrouching)
+        if (Mathf.Abs(x) < 0.01f)
         {
             float amount = Mathf.Min(Mathf.Abs(_rb.velocity.x), Mathf.Abs(frictionAmount));
             amount *= Mathf.Sign(_rb.velocity.x);

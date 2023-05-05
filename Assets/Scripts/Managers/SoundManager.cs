@@ -20,13 +20,7 @@ public class SoundManager : MonoBehaviour
             return;
         }
         DontDestroyOnLoad(gameObject);
-    }
 
-    public SoundsArray[] soundsArrays;
-    private Dictionary<string, SoundsArray> soundsArrayDictionary = new Dictionary<string, SoundsArray>();
-
-    private void Start()
-    {
         foreach (SoundsArray soundsArray in soundsArrays)
         {
             soundsArrayDictionary.Add(soundsArray.name, soundsArray);
@@ -36,12 +30,10 @@ public class SoundManager : MonoBehaviour
                 soundsArray.soundsDictionary.Add(sound.name, sound);
             }
         }
-
-        if (startMusicName != "")
-        {
-            PlayMusic(startMusicName);
-        }
     }
+
+    public SoundsArray[] soundsArrays;
+    private Dictionary<string, SoundsArray> soundsArrayDictionary = new Dictionary<string, SoundsArray>();
 
     public void PlayMusic(string songName)
     {

@@ -25,6 +25,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private GameObject startGate;
     [SerializeField] private GameObject playerObject;
     [SerializeField] private TextMeshProUGUI timerUI;
+    [SerializeField] private string startingMusicName;
 
     private const float GateTime = 1f;
     private float _timeRemaining;
@@ -57,6 +58,11 @@ public class LevelManager : MonoBehaviour
         _levelStarted = false;
         
         _timeRemaining = levelTime;
+    }
+
+    private void Start()
+    {
+        SoundManager.instance.PlayMusic(startingMusicName);
     }
 
     private void Update()
@@ -103,7 +109,6 @@ public class LevelManager : MonoBehaviour
 
     private void CalculateResults()
     {
-        print(ObjectiveManager.Instance.targetRemaining);
         if (ObjectiveManager.Instance.targetRemaining <= 0)
         {
             _endGateAnimator.SetTrigger(Open);

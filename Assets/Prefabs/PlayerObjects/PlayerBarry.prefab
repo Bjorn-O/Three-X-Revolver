@@ -483,6 +483,7 @@ GameObject:
   - component: {fileID: 786881623900106860}
   - component: {fileID: 786881623900106863}
   - component: {fileID: 5549661287993397427}
+  - component: {fileID: 4179914409060604641}
   m_Layer: 6
   m_Name: PlayerBarry
   m_TagString: Player
@@ -723,6 +724,18 @@ MonoBehaviour:
   shootDelayOnResume: 0.1
   muzzleFlash: {fileID: 3687547863578985368}
   muzzleSpeedTimeStop: 0.25
+--- !u!114 &4179914409060604641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 786881623900106856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1626837778171ed49b7bd3fa1d925357, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1013724973883602925
 GameObject:
   m_ObjectHideFlags: 0

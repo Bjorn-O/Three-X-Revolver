@@ -110,6 +110,7 @@ MonoBehaviour:
   startGate: {fileID: 0}
   playerObject: {fileID: 0}
   timerUI: {fileID: 0}
+  startingMusicName: Main
 --- !u!114 &7812739468564162875
 MonoBehaviour:
   m_ObjectHideFlags: 0

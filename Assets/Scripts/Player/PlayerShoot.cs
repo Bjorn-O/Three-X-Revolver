@@ -103,7 +103,7 @@ public class PlayerShoot : MonoBehaviour
         Vector2 currentPos = shootPoint.position;
         
 
-        bullet.Shoot((_aimPos - currentPos).normalized, 
+        bullet.Shoot(-shootPoint.up, 
             bulletSpeed * TimeManager.instance.TimeScale, 
             currentPos, 
             (MAX_AMMO - ammo) * shootDelayOnResume);

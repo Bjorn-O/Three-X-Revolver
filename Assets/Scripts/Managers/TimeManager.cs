@@ -31,7 +31,6 @@ public class TimeManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        DontDestroyOnLoad(gameObject);
     }
 
     public void StopTime()

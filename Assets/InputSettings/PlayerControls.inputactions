@@ -60,7 +60,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "DebugResumeTime",
+                    "name": "Restart",
                     "type": "Button",
                     "id": "9140d76c-2f94-4368-97fd-ea7e8d1be1de",
                     "expectedControlType": "Button",
@@ -260,11 +260,11 @@
                 {
                     "name": "",
                     "id": "7450264f-9873-4063-8570-dacced8f8756",
-                    "path": "<Keyboard>/t",
+                    "path": "<Keyboard>/r",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
-                    "action": "DebugResumeTime",
+                    "action": "Restart",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
