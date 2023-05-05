@@ -83,7 +83,8 @@ public class PlayerShoot : MonoBehaviour
 
         Bullet bullet = _bulletPool.Get();
 
-        Vector2 currentPos = new Vector2(shootPoint.position.x, shootPoint.position.y);
+        Vector2 currentPos = shootPoint.position;
+        
 
         bullet.Shoot((_aimPos - currentPos).normalized, 
             bulletSpeed * TimeManager.instance.TimeScale, 

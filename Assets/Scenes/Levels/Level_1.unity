@@ -1711,6 +1711,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 786881623900106860, guid: f073c9b025ab26b42b15b6dde035710a, type: 3}
+      propertyPath: groundCheckSize.x
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 5549661287993397427, guid: f073c9b025ab26b42b15b6dde035710a, type: 3}
       propertyPath: cursor
       value: 
@@ -4737,7 +4741,7 @@ PrefabInstance:
       objectReference: {fileID: 1625118952}
     - target: {fileID: 2146164510334455381, guid: 92b4e7d9272ca434ebc0c2d5aafd770f, type: 3}
       propertyPath: levelTime
-      value: 5
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 2146164510334455381, guid: 92b4e7d9272ca434ebc0c2d5aafd770f, type: 3}
       propertyPath: startGate
@@ -8991,6 +8995,10 @@ PrefabInstance:
       objectReference: {fileID: 496312070}
     - target: {fileID: 9191105175363277471, guid: d4e997434b433064abc2b0dcd25bef2c, type: 3}
       propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9191105175363277471, guid: d4e997434b433064abc2b0dcd25bef2c, type: 3}
+      propertyPath: m_MatchWidthOrHeight
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
