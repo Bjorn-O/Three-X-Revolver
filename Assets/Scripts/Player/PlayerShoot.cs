@@ -1,10 +1,8 @@
 using System;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.Pool;
-using UnityEngine.Serialization;
 
 public class PlayerShoot : MonoBehaviour
 {
@@ -16,9 +14,15 @@ public class PlayerShoot : MonoBehaviour
     public UnityEvent<Vector2> onStickAimEvent;
     
     private Camera _cam;
+    [SerializeField] private float missTolerance;
+    [SerializeField] private float aimTolerance;
+    [SerializeField] private LayerMask laserPointMask;
     [SerializeField] private Transform cursor;
     [SerializeField] private Transform shootPoint;
+    [SerializeField] private Transform laserPoint;
+    [SerializeField] private LineRenderer aimingLine;
     private Vector2 _aimPos;
+    private Vector2 _aimTarget;
 
     [SerializeField] private Bullet bulletPrefab;
     private ObjectPool<Bullet> _bulletPool;
@@ -57,6 +61,19 @@ public class PlayerShoot : MonoBehaviour
     private void Update()
     {
         onMouseAimEvent?.Invoke(_aimPos);
+        
+        var position = shootPoint.position;
+        _aimTarget = _aimPos - (Vector2)position;
+        var hit = Physics2D.Raycast(laserPoint.position, -shootPoint.up, 100 ,laserPointMask);
+        aimingLine.SetPosition(0, position);
+        if (hit || (hit.point - (Vector2)position).magnitude > aimTolerance)
+        {
+            aimingLine.SetPosition(1, hit.point);
+        }
+        else
+        {
+            aimingLine.SetPosition(1, -shootPoint.up * missTolerance);
+        }
     }
 
     private void OnMouseAim(InputValue inputValue)
@@ -64,7 +81,7 @@ public class PlayerShoot : MonoBehaviour
         var mousePos = inputValue.Get<Vector2>();
 
         Vector2 worldPos = _cam.ScreenToWorldPoint(mousePos);
-
+        
         cursor.position = worldPos;
         _aimPos = worldPos;
     }

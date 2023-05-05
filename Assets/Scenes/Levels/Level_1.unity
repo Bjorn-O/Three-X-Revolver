@@ -1711,30 +1711,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 786881623900106860, guid: f073c9b025ab26b42b15b6dde035710a, type: 3}
-      propertyPath: groundCheckSize.x
-      value: 0.4
-      objectReference: {fileID: 0}
     - target: {fileID: 5549661287993397427, guid: f073c9b025ab26b42b15b6dde035710a, type: 3}
       propertyPath: cursor
       value: 
       objectReference: {fileID: 1947404616}
     - target: {fileID: 5549661287993397427, guid: f073c9b025ab26b42b15b6dde035710a, type: 3}
-      propertyPath: onShoot.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      propertyPath: aimTolerance
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5549661287993397427, guid: f073c9b025ab26b42b15b6dde035710a, type: 3}
       propertyPath: onShoot.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 557515886}
-    - target: {fileID: 5549661287993397427, guid: f073c9b025ab26b42b15b6dde035710a, type: 3}
-      propertyPath: onShoot.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: AmmoCountDown
-      objectReference: {fileID: 0}
-    - target: {fileID: 5549661287993397427, guid: f073c9b025ab26b42b15b6dde035710a, type: 3}
-      propertyPath: onShoot.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: AmmoDisplay, Assembly-CSharp
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f073c9b025ab26b42b15b6dde035710a, type: 3}
 --- !u!1 &354172275
@@ -3342,6 +3330,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6017804616838094921, guid: 5711b496cb3fbdf4583ff496772afdc4, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6017804616838094924, guid: 5711b496cb3fbdf4583ff496772afdc4, type: 3}
       propertyPath: m_Name
       value: Volumes
@@ -4024,7 +4016,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1303151563}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0.008727774, y: 0, z: -0, w: 0.9999619}
   m_LocalPosition: {x: 0, y: 0, z: 51.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4035,7 +4027,7 @@ RectTransform:
   - {fileID: 2125489594}
   m_Father: {fileID: 0}
   m_RootOrder: 11
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -1, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -4470,6 +4462,10 @@ PrefabInstance:
     - target: {fileID: 5898020208363684544, guid: 47d85b047aada554e92f8f51f81cfde7, type: 3}
       propertyPath: m_Name
       value: Platform
+      objectReference: {fileID: 0}
+    - target: {fileID: 5898020208363684546, guid: 47d85b047aada554e92f8f51f81cfde7, type: 3}
+      propertyPath: m_ColliderMask.m_Bits
+      value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 5898020208363684547, guid: 47d85b047aada554e92f8f51f81cfde7, type: 3}
       propertyPath: m_RootOrder
