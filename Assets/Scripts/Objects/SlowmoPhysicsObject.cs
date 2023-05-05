@@ -36,7 +36,7 @@ public class SlowmoPhysicsObject : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         //Stop physics if hitting the ground in time stop
-        if (collision.gameObject.layer == 3 && rb.velocity.y < 0)
+        if (collision.gameObject.layer == 3 && rb.velocity.y <= 0)
         {
             LevelManager.Instance.RemoveActiveObject(gameObject);
             rb.isKinematic = TimeManager.instance.TimeScale < 1;

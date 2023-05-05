@@ -15,7 +15,6 @@ public class PlayerShoot : MonoBehaviour
     
     private Camera _cam;
     [SerializeField] private float missTolerance;
-    [SerializeField] private float aimTolerance;
     [SerializeField] private LayerMask laserPointMask;
     [SerializeField] private Transform cursor;
     [SerializeField] private Transform shootPoint;
@@ -66,7 +65,8 @@ public class PlayerShoot : MonoBehaviour
         _aimTarget = _aimPos - (Vector2)position;
         var hit = Physics2D.Raycast(laserPoint.position, -shootPoint.up, 100 ,laserPointMask);
         aimingLine.SetPosition(0, position);
-        if (hit || (hit.point - (Vector2)position).magnitude > aimTolerance)
+
+        if (hit)
         {
             aimingLine.SetPosition(1, hit.point);
         }
