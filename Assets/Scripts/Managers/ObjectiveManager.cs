@@ -29,10 +29,11 @@ public class ObjectiveManager : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        foreach (Enemy enemy in targets)
+        foreach (var enemy in targets)
         {
             enemy.onDeath += TargetKilled;
         }
+        targetRemaining = targets.Length;
     }
 
     private void TargetKilled()

@@ -11,6 +11,8 @@ public class AmmoDisplay : MonoBehaviour
     
     private int _currentAmmo = 3;
     private static readonly int TurnCylinder = Animator.StringToHash("TurnCylinder");
+    private static readonly int CylinderAppear = Animator.StringToHash("CylinderAppear");
+    private static readonly int CylinderDisappear = Animator.StringToHash("CylinderDisappear");
 
     private void Awake()
     {
@@ -26,6 +28,16 @@ public class AmmoDisplay : MonoBehaviour
         if (_currentAmmo == 0) return;
         _currentAmmo -= 1;
         ammoText.text = _currentAmmo.ToString();
+    }
+
+    public void ShowCylinder()
+    {
+        animator.SetTrigger(CylinderAppear);
+    }
+
+    public void HideCylinder()
+    {
+        animator.SetTrigger(CylinderDisappear);
     }
 
     public void AmmoReveal()

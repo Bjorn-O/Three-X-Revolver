@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using TMPro;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -21,12 +22,18 @@ public class LevelManager : MonoBehaviour
 
     [SerializeField] private float levelTime;
     [SerializeField] private GameObject endGate;
+    [SerializeField] private GameObject startGate;
+    [SerializeField] private GameObject playerObject;
     [SerializeField] private TextMeshProUGUI timerUI;
 
+    private const float GateTime = 1f;
     private float _timeRemaining;
+    private bool _shotsDepleted;
     private bool _levelStarted;
-    private List<GameObject> _activeGameplayObjects = new List<GameObject>();
-    private Animator _gateAnimator;
+
+    private List<GameObject> _activeGameplayObjects = new();
+    private Animator _endGateAnimator;
+    private Animator _startGateAnimator;
 
     private void Awake()
     {
@@ -40,8 +47,15 @@ public class LevelManager : MonoBehaviour
             return;
         }
         
-        _gateAnimator = endGate.GetComponent<Animator>();
-        _levelStarted = true;
+        playerObject = GameObject.FindWithTag("Player");
+        PlayerSetUp();
+        
+        _endGateAnimator = endGate.GetComponent<Animator>();
+        _startGateAnimator = startGate.GetComponent<Animator>();
+        
+        _shotsDepleted = false;
+        _levelStarted = false;
+        
         _timeRemaining = levelTime;
     }
 
@@ -49,43 +63,69 @@ public class LevelManager : MonoBehaviour
     {
         if (!_levelStarted) return;
 
-        if (_timeRemaining <= 0 )
+        if (_timeRemaining <= 0 || _shotsDepleted)
         {
-            timerUI.text = TimeFormatter(0);
-            if (_activeGameplayObjects.Count <= 0)
-            {
-                StopLevel();
-            }
+            StopLevel();
+            timerUI.text = TimeFormatter(_timeRemaining <= 0 ? 0 : _timeRemaining);
+            return;
         }
-        else
-        {
-            _timeRemaining -= Time.deltaTime;
-        }
-
+        _timeRemaining -= Time.deltaTime;
         timerUI.text = TimeFormatter(_timeRemaining);
     }
 
     public void StartLevel()
     {
-        if (_levelStarted) return;
+        StartCoroutine(StartLevelRoutine());
+    }
+
+    private void ShotsDepleted()
+    {
+        _shotsDepleted = true;
+    }
+
+    private IEnumerator StartLevelRoutine()
+    {
+        if (_levelStarted) yield break;
+
+        _startGateAnimator.SetTrigger(Open);
+        yield return new WaitForSeconds(GateTime);
+        
         onLevelStarted.Invoke();
-        
-        
         _levelStarted = true;
     }
 
     private void StopLevel()
     {
-        onLevelStopped.Invoke();
+        onLevelStopped?.Invoke();
+        _levelStarted = false;
+        if (_activeGameplayObjects.Count == 0) CalculateResults();
+    }
+
+    private void CalculateResults()
+    {
+        print(ObjectiveManager.Instance.targetRemaining);
         if (ObjectiveManager.Instance.targetRemaining <= 0)
         {
-            _gateAnimator.SetTrigger(Open);
+            _endGateAnimator.SetTrigger(Open);
             _levelStarted = false;
             onLevelWon.Invoke();
             return;
         }
+        print(onLevelLost);
         onLevelLost.Invoke();
         // Show Reset Button
+    }
+    
+    private void PlayerSetUp()
+    {
+        if (playerObject.TryGetComponent<PlayerShoot>(out var shoot))
+        {
+            shoot.onOutOfAmmo.AddListener(ShotsDepleted);
+        }
+        else
+        {
+            print("Can't find shooting script");
+        }
     }
 
     public void AddActiveObject(GameObject activeObject)
@@ -96,6 +136,10 @@ public class LevelManager : MonoBehaviour
     public void RemoveActiveObject(GameObject inactiveObject)
     {
         _activeGameplayObjects.Remove(inactiveObject);
+        if (_activeGameplayObjects.Count <= 0 && (_shotsDepleted || _timeRemaining <= 0))
+        {
+            CalculateResults();
+        }
     }
 
     private string TimeFormatter(float time)

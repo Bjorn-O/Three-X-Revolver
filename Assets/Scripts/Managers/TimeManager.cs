@@ -33,12 +33,6 @@ public class TimeManager : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
     }
-    
-    //TODO is only for debug
-    private void Start()
-    {
-        Invoke(nameof(StopTime), timeToStopTime);
-    }
 
     public void StopTime()
     {
