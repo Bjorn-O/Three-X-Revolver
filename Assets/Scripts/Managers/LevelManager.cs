@@ -1,13 +1,8 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
 using TMPro;
-using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.InputSystem.iOS;
 
 public class LevelManager : MonoBehaviour
 {
