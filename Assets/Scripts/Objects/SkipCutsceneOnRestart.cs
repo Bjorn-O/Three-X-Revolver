@@ -13,6 +13,14 @@ public class SkipCutsceneOnRestart : MonoBehaviour
         PlayableDirector director = GetComponent<PlayableDirector>();
         director.initialTime = GameManager.instance.PlayerRestarted ? timelineSkipTime : director.initialTime;
 
-        director.Play();
+
+        if (director.playableAsset != null)
+        {
+            director.Play();
+        }
+        else
+        {
+            LevelManager.Instance.StartLevel();
+        }
     }
 }
