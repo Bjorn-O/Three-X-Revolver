@@ -185,40 +185,48 @@ MonoBehaviour:
     sounds:
     - name: Main
       audioClip: {fileID: 8300000, guid: 025336cca8430f64684870a532ac2592, type: 3}
+      mixerGroup: {fileID: -6101618221883511491, guid: 4ce10c636ff82704ca4669f4fca21d6f, type: 2}
       volume: 0.6
       loop: 0
     - name: TimeStop
       audioClip: {fileID: 8300000, guid: 64090ba64dfa3d94c89cf4ee8eeef7de, type: 3}
+      mixerGroup: {fileID: -6101618221883511491, guid: 4ce10c636ff82704ca4669f4fca21d6f, type: 2}
       volume: 0.8
       loop: 0
   - name: Player
     sounds:
     - name: Shoot
       audioClip: {fileID: 8300000, guid: 5f4e74b7a1bbd4e48925c98153d9c0a7, type: 3}
+      mixerGroup: {fileID: -5167567376544388357, guid: 4ce10c636ff82704ca4669f4fca21d6f, type: 2}
       volume: 1
       loop: 0
     - name: Spotted
       audioClip: {fileID: 8300000, guid: db14f157bd93a7944a8a046ce1549fec, type: 3}
+      mixerGroup: {fileID: -5167567376544388357, guid: 4ce10c636ff82704ca4669f4fca21d6f, type: 2}
       volume: 1
       loop: 0
   - name: Time
     sounds:
     - name: TimeStop
       audioClip: {fileID: 8300000, guid: a62c113434dcfc64592a0793fb8f2578, type: 3}
+      mixerGroup: {fileID: -5167567376544388357, guid: 4ce10c636ff82704ca4669f4fca21d6f, type: 2}
       volume: 0.7
       loop: 1
   - name: Bullet
     sounds:
     - name: FlyBy
       audioClip: {fileID: 8300000, guid: f8f7aafe3ac59af46b366eab56ff859f, type: 3}
+      mixerGroup: {fileID: -5167567376544388357, guid: 4ce10c636ff82704ca4669f4fca21d6f, type: 2}
       volume: 0.7
       loop: 0
     - name: Impact
       audioClip: {fileID: 8300000, guid: df26efb6f18780744be377919ec6d5a6, type: 3}
+      mixerGroup: {fileID: -5167567376544388357, guid: 4ce10c636ff82704ca4669f4fca21d6f, type: 2}
       volume: 1
       loop: 0
     - name: HitEnemy
       audioClip: {fileID: 8300000, guid: 9888d7b048b642041844795f9d9c4974, type: 3}
+      mixerGroup: {fileID: -5167567376544388357, guid: 4ce10c636ff82704ca4669f4fca21d6f, type: 2}
       volume: 1
       loop: 0
 --- !u!1 &3057560121282913837

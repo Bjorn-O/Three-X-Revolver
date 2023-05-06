@@ -69,7 +69,7 @@ public class SoundManager : MonoBehaviour
     private void Play(string categoryName, string soundName, AudioSource audioSource)
     {
         Sound sound = GetSound(categoryName, soundName);
-
+        audioSource.outputAudioMixerGroup = sound.mixerGroup;
         audioSource.volume = sound.volume;
 
         if (audioSource == sfxSource)
