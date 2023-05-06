@@ -44,6 +44,5 @@ public class ObjectiveManager : MonoBehaviour
         {
             OnObjectiveComplete?.Invoke();
         }
-        Debug.LogError(targets);
     }
 }
