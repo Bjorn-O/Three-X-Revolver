@@ -712,7 +712,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   missTolerance: 50
-  laserRicochetLength: 0.5
+  laserRicochetLength: 1
   laserPointMask:
     serializedVersion: 2
     m_Bits: 9

@@ -72,6 +72,9 @@ MonoBehaviour:
   checkOffsetY: 0.05
   reverseGravity: -3.5
   timeStopGravityScale: 0.2
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 136
 --- !u!1 &3287522882119209762
 GameObject:
   m_ObjectHideFlags: 0
