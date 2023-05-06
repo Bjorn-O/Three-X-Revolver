@@ -105,7 +105,7 @@ MonoBehaviour:
   onLevelWon:
     m_PersistentCalls:
       m_Calls: []
-  levelTime: 180
+  levelTime: 30
   endGate: {fileID: 0}
   startGate: {fileID: 0}
   playerObject: {fileID: 0}

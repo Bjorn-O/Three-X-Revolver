@@ -10,6 +10,8 @@ public class SoundManager : MonoBehaviour
 
     public static SoundManager instance;
 
+    private bool ignoreTimeScaleSfx = false;
+
     void Awake()
     {
         if (instance == null)
@@ -42,6 +44,12 @@ public class SoundManager : MonoBehaviour
 
     public void PlaySoundEffect(string categoryName, string soundEffectName)
     {
+        PlaySoundEffect(categoryName, soundEffectName, false);
+    }
+
+    public void PlaySoundEffect(string categoryName, string soundEffectName, bool ignoreTimeScale)
+    {
+        ignoreTimeScaleSfx = ignoreTimeScale;
         Play(categoryName, soundEffectName, sfxSource);
     }
 
@@ -83,11 +91,14 @@ public class SoundManager : MonoBehaviour
                 return;
             }
 
-            audioSource.pitch = TimeManager.instance.TimeScale < 1 ? TimeManager.instance.TimeScale * timeStopPitchMultiplier : 1;
+            audioSource.pitch = TimeManager.instance.TimeScale < 1 && !ignoreTimeScaleSfx ? TimeManager.instance.TimeScale * timeStopPitchMultiplier : 1;
             audioSource.PlayOneShot(sound.audioClip);
         }
         else
         {
+            if (audioSource.clip == sound.audioClip)
+                return;
+
             audioSource.loop = sound.loop;
             audioSource.Stop();
             audioSource.clip = sound.audioClip;

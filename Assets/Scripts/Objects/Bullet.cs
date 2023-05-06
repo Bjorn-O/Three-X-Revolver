@@ -82,27 +82,28 @@ public class Bullet : MonoBehaviour
             return;
         }
 
-        var missPos = dir * missDistance;
+        var missPos = transform.position + dir * missDistance;
         Invoke(nameof(BulletRelease), missTime);
         StartCoroutine(PlaceBulletAlongTrail(transform.position, missPos, null));
     }
 
     private IEnumerator PlaceBulletAlongTrail(Vector3 startPos, Vector3 targetPos, RaycastHit2D[] hits)
     {
-        int length = hits.Length > trailSubs ? hits.Length : trailSubs;
+        int hitsLength = hits != null ? hits.Length : 0;
+        int length = hitsLength > trailSubs ? hits.Length : trailSubs;
         int hitPositionsUsed = 0;
 
         for (int i = 0; i < length; i++)
         {
             Vector2 hitPos = hits != null ? hits[hitPositionsUsed].point : Vector2.zero;
-            Vector2 lerpPos = hits.Length < trailSubs ? Vector2.Lerp(startPos, targetPos, 1 / (float)length * i) : Vector2.zero;
+            Vector2 lerpPos = hitsLength < trailSubs ? Vector2.Lerp(startPos, targetPos, 1 / (float)length * i) : Vector2.zero;
 
             float hitDist = Vector2.Distance(transform.position, hitPos);
-            float lerpDist = hits.Length < trailSubs ?  Vector2.Distance(transform.position, lerpPos) : Mathf.Infinity;
+            float lerpDist = hitsLength < trailSubs ?  Vector2.Distance(transform.position, lerpPos) : Mathf.Infinity;
             
             if (hits != null && (length == hits.Length || hitDist <= lerpDist))
             {
-                BulletHit(hits[hitPositionsUsed].collider,hits[hitPositionsUsed].normal);
+                BulletHit(hits[hitPositionsUsed].collider, hits[hitPositionsUsed].normal);
                 hitPositionsUsed++;
                 transform.position = hitPos;
             }

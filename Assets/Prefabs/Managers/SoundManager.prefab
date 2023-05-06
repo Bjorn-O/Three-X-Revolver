@@ -210,6 +210,16 @@ MonoBehaviour:
       mixerGroup: {fileID: -5167567376544388357, guid: 4ce10c636ff82704ca4669f4fca21d6f, type: 2}
       volume: 1
       loop: 0
+    - name: GunAppear
+      audioClip: {fileID: 8300000, guid: 7867d1c910c1d944bb48038df6b6ef18, type: 3}
+      mixerGroup: {fileID: -5167567376544388357, guid: 4ce10c636ff82704ca4669f4fca21d6f, type: 2}
+      volume: 1
+      loop: 0
+    - name: SwitchBullet
+      audioClip: {fileID: 8300000, guid: b9aae3d1f0a80b240a17da1b75ce4e39, type: 3}
+      mixerGroup: {fileID: -5167567376544388357, guid: 4ce10c636ff82704ca4669f4fca21d6f, type: 2}
+      volume: 1
+      loop: 0
   - name: Time
     sounds:
     - name: TimeStop
@@ -227,7 +237,7 @@ MonoBehaviour:
     - name: Impact
       audioClip: {fileID: 8300000, guid: df26efb6f18780744be377919ec6d5a6, type: 3}
       mixerGroup: {fileID: -5167567376544388357, guid: 4ce10c636ff82704ca4669f4fca21d6f, type: 2}
-      volume: 1
+      volume: 0.8
       loop: 0
     - name: HitEnemy
       audioClip: {fileID: 8300000, guid: 9888d7b048b642041844795f9d9c4974, type: 3}
