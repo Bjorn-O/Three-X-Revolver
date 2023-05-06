@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6820464004723921286}
   - component: {fileID: 4789999927047069521}
   - component: {fileID: 8842293605384862110}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,7 +122,7 @@ GameObject:
   - component: {fileID: 3424888350055172732}
   - component: {fileID: 3424888349779696975}
   - component: {fileID: 3424888349779696974}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: StartGate
   m_TagString: Untagged
   m_Icon: {fileID: 0}

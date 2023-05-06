@@ -18,7 +18,6 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField] private LayerMask laserPointMask;
     [SerializeField] private Transform cursor;
     [SerializeField] private Transform shootPoint;
-    [SerializeField] private Transform laserPoint;
     [SerializeField] private LineRenderer aimingLine;
     private Vector2 _aimPos;
     private Vector2 _aimTarget;
@@ -31,6 +30,8 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField] private float shootDelayOnResume = 0.1f;
     [SerializeField] private Animator muzzleFlash;
     [SerializeField] private float muzzleSpeedTimeStop = 0.25f;
+
+    private bool canShoot = true;
 
     // Start is called before the first frame update
     private void Start()
@@ -63,7 +64,7 @@ public class PlayerShoot : MonoBehaviour
         
         var position = shootPoint.position;
         _aimTarget = _aimPos - (Vector2)position;
-        var hit = Physics2D.Raycast(laserPoint.position, -shootPoint.up, 100 ,laserPointMask);
+        var hit = Physics2D.Raycast(shootPoint.position, -shootPoint.up, 100, laserPointMask);
         aimingLine.SetPosition(0, position);
 
         if (hit)
@@ -95,7 +96,7 @@ public class PlayerShoot : MonoBehaviour
 
     private void OnShoot()
     {
-        if (ammo <= 0 || TimeManager.instance.TimeScale >= 1)
+        if (ammo <= 0 || TimeManager.instance.TimeScale >= 1 || !canShoot)
             return;
 
         Bullet bullet = _bulletPool.Get();
@@ -128,8 +129,21 @@ public class PlayerShoot : MonoBehaviour
         _bulletPool.Release(bullet);
     }
 
-    private void OnDebugResumeTime()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        TimeManager.instance.ResumeTime();
+        if (collision.gameObject.layer != 3)
+            return;
+
+        canShoot = false;
+        aimingLine.enabled = false;
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer != 3)
+            return;
+
+        canShoot = true;
+        aimingLine.enabled = true;
     }
 }

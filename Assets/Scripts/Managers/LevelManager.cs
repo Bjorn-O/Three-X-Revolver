@@ -47,7 +47,12 @@ public class LevelManager : MonoBehaviour
         PlayerSetUp();
         
         _endGateAnimator = endGate.GetComponent<Animator>();
-        _startGateAnimator = startGate.GetComponent<Animator>();
+
+        if (startGate != null)
+        {
+            _startGateAnimator = startGate.GetComponent<Animator>();
+        }
+        
         
         _shotsDepleted = false;
         _levelStarted = false;
@@ -88,7 +93,11 @@ public class LevelManager : MonoBehaviour
     {
         if (_levelStarted) yield break;
 
-        _startGateAnimator.SetTrigger(Open);
+        if (_startGateAnimator != null)
+        {
+            _startGateAnimator.SetTrigger(Open);
+        }
+
         yield return new WaitForSeconds(GateTime);
         
         onLevelStarted.Invoke();
