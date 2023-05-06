@@ -43,7 +43,9 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        BulletHit(collision, collision.transform.up);
+        var position = transform.position;
+        var point = collision.ClosestPoint(position);
+        BulletHit(collision, ((Vector2)position - point).normalized);
     }
 
     private void ShowTrail()
@@ -145,7 +147,11 @@ public class Bullet : MonoBehaviour
                 //TODO Ricochet sound effect
                 //SoundManager.instance.PlaySoundEffect("Bullet", "HitEnemy");
                 var ricochetDir = Vector2.Reflect(_rb.velocity.normalized, normal);
-                TurnIntoRaycast(ricochetDir);
+                _rb.velocity = ricochetDir * _rb.velocity.magnitude;
+                if (TimeManager.instance.TimeScale >= 1)
+                {
+                    TurnIntoRaycast(ricochetDir);
+                }
                 //Play soundeffect or something
                 break;
             default:

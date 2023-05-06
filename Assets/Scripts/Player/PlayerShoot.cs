@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -15,10 +14,12 @@ public class PlayerShoot : MonoBehaviour
     
     private Camera _cam;
     [SerializeField] private float missTolerance;
+    [SerializeField] private float laserRicochetLength = 5;
     [SerializeField] private LayerMask laserPointMask;
     [SerializeField] private Transform cursor;
     [SerializeField] private Transform shootPoint;
     [SerializeField] private LineRenderer aimingLine;
+    
     private Vector2 _aimPos;
     private Vector2 _aimTarget;
 
@@ -66,14 +67,23 @@ public class PlayerShoot : MonoBehaviour
         _aimTarget = _aimPos - (Vector2)position;
         var hit = Physics2D.Raycast(shootPoint.position, -shootPoint.up, 100, laserPointMask);
         aimingLine.SetPosition(0, position);
-
+        
+        
+        
         if (hit)
         {
             aimingLine.SetPosition(1, hit.point);
+            aimingLine.SetPosition(2, hit.point );
+
+            if (!hit.collider.CompareTag("Ricochet")) return;
+            //var ricochetDir = Vector2.Reflect(_rb.velocity.normalized, normal);
+            var ricochetDir = Vector2.Reflect(-shootPoint.up, hit.normal);
+            aimingLine.SetPosition(2, hit.point + ricochetDir * laserRicochetLength);
         }
         else
         {
             aimingLine.SetPosition(1, -shootPoint.up * missTolerance);
+            aimingLine.SetPosition(2, -shootPoint.up * missTolerance );
         }
     }
 
