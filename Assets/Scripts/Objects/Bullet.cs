@@ -11,6 +11,7 @@ public class Bullet : MonoBehaviour
     public Release OnRelease;
     private float _shootDelayOnResume;
     [SerializeField] private LayerMask raycastLayerMask;
+    [SerializeField] private float missTime;
     [SerializeField] private float missDistance;
     [SerializeField] private float onReleaseTimeWhenHit = 0.1f;
     [SerializeField] private int trailSubs = 4;
@@ -42,7 +43,7 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        BulletHit(collision);
+        BulletHit(collision, collision.transform.up);
     }
 
     private void ShowTrail()
@@ -52,13 +53,11 @@ public class Bullet : MonoBehaviour
         _afterImageEffect.gameObject.SetActive(false);
         SoundManager.instance.PlaySoundEffect("Bullet", "FlyBy");
 
-        TurnIntoRaycast();
+        TurnIntoRaycast(_rb.velocity.normalized);
     }
 
-    private void TurnIntoRaycast()
+    private void TurnIntoRaycast(Vector3 dir)
     {
-        Vector3 dir = _rb.velocity.normalized;
-
         RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, dir, 999, raycastLayerMask);
 
         if (hits.Length > 0)
@@ -83,7 +82,8 @@ public class Bullet : MonoBehaviour
             return;
         }
 
-        Vector3 missPos = dir * missDistance;
+        var missPos = dir * missDistance;
+        Invoke(nameof(BulletRelease), missTime);
         StartCoroutine(PlaceBulletAlongTrail(transform.position, missPos, null));
     }
 
@@ -99,12 +99,10 @@ public class Bullet : MonoBehaviour
 
             float hitDist = Vector2.Distance(transform.position, hitPos);
             float lerpDist = hits.Length < trailSubs ?  Vector2.Distance(transform.position, lerpPos) : Mathf.Infinity;
-
-            //Debug.Log(hitPos + " dist: " + hitDist + " lerpPos: " + lerpPos + " lerpDist: "+ lerpDist + " transPos: " + transform.position +  " start: " + startPos +" target: " + targetPos);
-
+            
             if (hits != null && (length == hits.Length || hitDist <= lerpDist))
             {
-                BulletHit(hits[hitPositionsUsed].collider);
+                BulletHit(hits[hitPositionsUsed].collider,hits[hitPositionsUsed].normal);
                 hitPositionsUsed++;
                 transform.position = hitPos;
             }
@@ -122,16 +120,13 @@ public class Bullet : MonoBehaviour
         {
             for (int i = hitPositionsUsed; i < hits.Length; i++)
             {
-                BulletHit(hits[i].collider);
+                BulletHit(hits[i].collider, hits[i].normal);
             }
         }
 
-        _trail.emitting = false;
-
-        Invoke(nameof(BulletRelease), onReleaseTimeWhenHit);
     }
 
-    private void BulletHit(Collider2D collider)
+    private void BulletHit(Collider2D collider, Vector2 normal)
     {
         GameObject hitObj = collider.gameObject;
 
@@ -146,9 +141,16 @@ public class Bullet : MonoBehaviour
                 SoundManager.instance.PlaySoundEffect("Bullet", "HitEnemy");
                 hitObj.GetComponent<Enemy>().Kill();
                 break;
+            case "Ricochet":
+                //TODO Ricochet sound effect
+                //SoundManager.instance.PlaySoundEffect("Bullet", "HitEnemy");
+                var ricochetDir = Vector2.Reflect(_rb.velocity.normalized, normal);
+                TurnIntoRaycast(ricochetDir);
+                //Play soundeffect or something
+                break;
             default:
                 SoundManager.instance.PlaySoundEffect("Bullet", "Impact");
-
+                _trail.emitting = false;
                 if (TimeManager.instance.TimeScale >= 1)
                     Invoke(nameof(BulletRelease), onReleaseTimeWhenHit);
                 else

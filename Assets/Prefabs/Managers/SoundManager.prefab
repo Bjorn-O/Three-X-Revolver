@@ -41,7 +41,7 @@ AudioSource:
   m_GameObject: {fileID: 2092341321}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -5167567376544388357, guid: 4ce10c636ff82704ca4669f4fca21d6f, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -187,12 +187,17 @@ MonoBehaviour:
       audioClip: {fileID: 8300000, guid: 025336cca8430f64684870a532ac2592, type: 3}
       mixerGroup: {fileID: -6101618221883511491, guid: 4ce10c636ff82704ca4669f4fca21d6f, type: 2}
       volume: 0.6
-      loop: 0
+      loop: 1
     - name: TimeStop
+      audioClip: {fileID: 8300000, guid: 7865b0bef47de7441a78f6ba0c9f8ed2, type: 3}
+      mixerGroup: {fileID: -6101618221883511491, guid: 4ce10c636ff82704ca4669f4fca21d6f, type: 2}
+      volume: 0.6
+      loop: 1
+    - name: MainMenu
       audioClip: {fileID: 8300000, guid: 64090ba64dfa3d94c89cf4ee8eeef7de, type: 3}
       mixerGroup: {fileID: -6101618221883511491, guid: 4ce10c636ff82704ca4669f4fca21d6f, type: 2}
       volume: 0.8
-      loop: 0
+      loop: 1
   - name: Player
     sounds:
     - name: Shoot
@@ -210,7 +215,7 @@ MonoBehaviour:
     - name: TimeStop
       audioClip: {fileID: 8300000, guid: a62c113434dcfc64592a0793fb8f2578, type: 3}
       mixerGroup: {fileID: -5167567376544388357, guid: 4ce10c636ff82704ca4669f4fca21d6f, type: 2}
-      volume: 0.7
+      volume: 0.6
       loop: 1
   - name: Bullet
     sounds:
@@ -270,7 +275,7 @@ AudioSource:
   m_GameObject: {fileID: 3057560121282913837}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -6101618221883511491, guid: 4ce10c636ff82704ca4669f4fca21d6f, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -398,7 +403,7 @@ AudioSource:
   m_GameObject: {fileID: 7846638221916852420}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -5167567376544388357, guid: 4ce10c636ff82704ca4669f4fca21d6f, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1

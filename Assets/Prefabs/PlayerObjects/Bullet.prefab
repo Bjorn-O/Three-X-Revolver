@@ -71,9 +71,11 @@ MonoBehaviour:
   raycastLayerMask:
     serializedVersion: 2
     m_Bits: 9
+  missTime: 1
   missDistance: 10
   onReleaseTimeWhenHit: 1
   trailSubs: 4
+  allHitPos: []
 --- !u!96 &2460104145152129663
 TrailRenderer:
   serializedVersion: 2
@@ -114,7 +116,7 @@ TrailRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -699336207
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 98
   m_Time: 0.1
   m_Parameters:
@@ -255,7 +257,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -699336207
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 99
   m_Sprite: {fileID: 21300000, guid: f1246ba1e3938dc4b9d3c9da0e4dbf4f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -299,5 +301,6 @@ MonoBehaviour:
   afterImagePrefab: {fileID: 2128568164361675598, guid: 80af060e1dfdf614ba988a9fd3d56429, type: 3}
   dissapearTime: 10
   createDistance: 0.07
+  rotationCreateDistance: 0
   orderInLayer: -1
   startColor: {r: 1, g: 1, b: 1, a: 1}

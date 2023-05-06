@@ -710,7 +710,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   missTolerance: 50
-  aimTolerance: 0
   laserPointMask:
     serializedVersion: 2
     m_Bits: 9
@@ -1093,6 +1092,22 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 05a86108c96b6124580d63cbfef13af6, type: 2}
+    - target: {fileID: 4938323010849097159, guid: d6251494160e97d47ac1117b656628c9, type: 3}
+      propertyPath: m_Positions.Array.data[0].x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938323010849097159, guid: d6251494160e97d47ac1117b656628c9, type: 3}
+      propertyPath: m_Positions.Array.data[0].y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938323010849097159, guid: d6251494160e97d47ac1117b656628c9, type: 3}
+      propertyPath: m_Positions.Array.data[1].x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938323010849097159, guid: d6251494160e97d47ac1117b656628c9, type: 3}
+      propertyPath: m_Positions.Array.data[1].y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4938323010849097159, guid: d6251494160e97d47ac1117b656628c9, type: 3}
       propertyPath: m_Parameters.colorGradient.atime0
       value: 193
