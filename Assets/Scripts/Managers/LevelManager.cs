@@ -77,6 +77,7 @@ public class LevelManager : MonoBehaviour
         }
         _timeRemaining -= Time.deltaTime;
         timerUI.text = TimeFormatter(_timeRemaining);
+
     }
 
     public void StartLevel()
@@ -108,6 +109,7 @@ public class LevelManager : MonoBehaviour
     {
         onLevelStopped?.Invoke();
         _levelStarted = false;
+        Debug.LogError(_activeGameplayObjects);
         if (_activeGameplayObjects.Count == 0) CalculateResults();
     }
 
