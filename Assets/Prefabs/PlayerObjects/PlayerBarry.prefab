@@ -96,8 +96,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b41e2bb27d4e2c14e844d3cbca8f4fff, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   afterImagePrefab: {fileID: 2128568164361675598, guid: 80af060e1dfdf614ba988a9fd3d56429, type: 3}
   dissapearTime: 0.6
   createDistance: 0.5
@@ -148,8 +148,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26273b567560bdb4787437a09c7f9680, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &786881622712529735
 GameObject:
   m_ObjectHideFlags: 0
@@ -257,7 +257,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_WarningMessage:
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
@@ -272,8 +272,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 852cc55be9e5f4147b343f0e621d4610, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   animator: {fileID: 786881622712529755}
 --- !u!114 &2770825424965093109
 MonoBehaviour:
@@ -285,8 +285,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b87b99c142f047278c9c90ea3afa290b, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   OnMovingBackwards:
     m_PersistentCalls:
       m_Calls:
@@ -299,7 +299,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument:
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
   tolerance: 1
@@ -313,8 +313,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b41e2bb27d4e2c14e844d3cbca8f4fff, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   afterImagePrefab: {fileID: 2128568164361675598, guid: 80af060e1dfdf614ba988a9fd3d56429, type: 3}
   dissapearTime: 0.6
   createDistance: 0.5
@@ -432,8 +432,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b41e2bb27d4e2c14e844d3cbca8f4fff, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   afterImagePrefab: {fileID: 2128568164361675598, guid: 80af060e1dfdf614ba988a9fd3d56429, type: 3}
   dissapearTime: 0.6
   createDistance: 0.5
@@ -540,8 +540,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9aa90944f9faafd4687d65e8c95e1037, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   onMoveEvent:
     m_PersistentCalls:
       m_Calls:
@@ -554,7 +554,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument:
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
   onJumpEvent:
@@ -569,7 +569,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument:
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
   onCrouchEvent:
@@ -587,7 +587,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument:
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
   onMoveDirection:
@@ -602,7 +602,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument:
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
   moveSpeed: 5
@@ -629,8 +629,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: 6a4b6d3aa1e46a245b8100d657d57832, type: 3}
   m_NotificationBehavior: 1
   m_UIInputModule: {fileID: 0}
@@ -645,7 +645,7 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme:
+  m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -659,8 +659,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8c5ad52dc87d58f43b45b9999b96c754, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   onShoot:
     m_PersistentCalls:
       m_Calls:
@@ -691,7 +691,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument:
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 2770825424965093109}
@@ -703,13 +703,14 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument:
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
   onStickAimEvent:
     m_PersistentCalls:
       m_Calls: []
   missTolerance: 50
+  laserRicochetLength: 0.5
   laserPointMask:
     serializedVersion: 2
     m_Bits: 9
@@ -732,8 +733,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1626837778171ed49b7bd3fa1d925357, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1013724973883602925
 GameObject:
   m_ObjectHideFlags: 0
@@ -824,8 +825,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_ComponentVersion: 1
   m_LightType: 3
   m_BlendStyleIndex: 0
@@ -971,7 +972,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_WarningMessage:
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
@@ -1070,15 +1071,27 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4938323010849097159, guid: d6251494160e97d47ac1117b656628c9, type: 3}
       propertyPath: m_Loop
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938323010849097159, guid: d6251494160e97d47ac1117b656628c9, type: 3}
+      propertyPath: m_Positions.Array.size
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4938323010849097159, guid: d6251494160e97d47ac1117b656628c9, type: 3}
       propertyPath: m_Materials.Array.data[0]
-      value:
+      value: 
       objectReference: {fileID: 2100000, guid: 05a86108c96b6124580d63cbfef13af6, type: 2}
     - target: {fileID: 4938323010849097159, guid: d6251494160e97d47ac1117b656628c9, type: 3}
       propertyPath: m_Positions.Array.data[0].x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938323010849097159, guid: d6251494160e97d47ac1117b656628c9, type: 3}
+      propertyPath: m_Positions.Array.data[2].x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4938323010849097159, guid: d6251494160e97d47ac1117b656628c9, type: 3}
+      propertyPath: m_Positions.Array.data[2].y
+      value: 0.63
       objectReference: {fileID: 0}
     - target: {fileID: 4938323010849097159, guid: d6251494160e97d47ac1117b656628c9, type: 3}
       propertyPath: m_Parameters.widthMultiplier
