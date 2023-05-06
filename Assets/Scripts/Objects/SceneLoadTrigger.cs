@@ -10,6 +10,7 @@ public class SceneLoadTrigger : MonoBehaviour
     {
         if (collision.attachedRigidbody != null && collision.attachedRigidbody.CompareTag("Player"))
         {
+            GameManager.instance.PlayerRestarted = false;
             LevelLoader.instance.LoadScene(sceneName);
         }
     }
