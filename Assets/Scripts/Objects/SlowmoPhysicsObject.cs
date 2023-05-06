@@ -8,10 +8,12 @@ public class SlowmoPhysicsObject : MonoBehaviour
     [SerializeField] private float checkOffsetY = 0.5f;
     [SerializeField] private float reverseGravity = -3.5f;
     [SerializeField] private float timeStopGravityScale = 0.1f;
+    [SerializeField] private LayerMask layerMask;
 
     // Start is called before the first frame update
     void Start()
     {
+        print(layerMask.value);
         rb = GetComponent<Rigidbody2D>();
         TimeManager.instance.OnTimeStop += () => { rb.velocity = Vector2.zero; rb.gravityScale = timeStopGravityScale; };
         TimeManager.instance.OnTimeResume += () => { rb.gravityScale = 1; };
@@ -36,7 +38,7 @@ public class SlowmoPhysicsObject : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         //Stop physics if hitting the ground in time stop
-        if (collision.gameObject.layer == 3 && rb.velocity.y <= 0)
+        if (((1<<collision.gameObject.layer) & layerMask) != 0 && rb.velocity.y <= 0)
         {
             LevelManager.Instance.RemoveActiveObject(gameObject);
             rb.isKinematic = TimeManager.instance.TimeScale < 1;
