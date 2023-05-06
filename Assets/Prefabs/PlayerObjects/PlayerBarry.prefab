@@ -715,7 +715,7 @@ MonoBehaviour:
   laserRicochetLength: 1
   laserPointMask:
     serializedVersion: 2
-    m_Bits: 9
+    m_Bits: 8
   cursor: {fileID: 0}
   shootPoint: {fileID: 1110718195499151454}
   aimingLine: {fileID: 3498435081860249096}
