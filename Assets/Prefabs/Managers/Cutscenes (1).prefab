@@ -92,6 +92,7 @@ GameObject:
   m_Component:
   - component: {fileID: 171581824630714815}
   - component: {fileID: 3538270889393302950}
+  - component: {fileID: 1038696386507985473}
   m_Layer: 0
   m_Name: StartCutscene
   m_TagString: Untagged
@@ -131,3 +132,16 @@ PlayableDirector:
   m_SceneBindings: []
   m_ExposedReferences:
     m_References: []
+--- !u!114 &1038696386507985473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3523306309473499950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab2eb93a669f53441a9c0126f0644887, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timelineSkipTime: 0

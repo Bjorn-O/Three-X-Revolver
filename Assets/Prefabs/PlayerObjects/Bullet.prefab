@@ -71,7 +71,7 @@ MonoBehaviour:
   raycastLayerMask:
     serializedVersion: 2
     m_Bits: 9
-  missTime: 1
+  missTime: 10
   missDistance: 10
   onReleaseTimeWhenHit: 1
   trailSubs: 4
