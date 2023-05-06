@@ -131,7 +131,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (inputValue.isPressed)
         {
-            OnCrouchStarted();
+            OnCrouchStarted?.Invoke();
             _isCrouching = true;
             onCrouchEvent?.Invoke(_isCrouching);
         }

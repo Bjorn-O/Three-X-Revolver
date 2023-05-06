@@ -244,6 +244,11 @@ MonoBehaviour:
       mixerGroup: {fileID: -5167567376544388357, guid: 4ce10c636ff82704ca4669f4fca21d6f, type: 2}
       volume: 1
       loop: 0
+    - name: Ricochet
+      audioClip: {fileID: 8300000, guid: 49b353d29c26cd94194acf1aa2b09c69, type: 3}
+      mixerGroup: {fileID: -5167567376544388357, guid: 4ce10c636ff82704ca4669f4fca21d6f, type: 2}
+      volume: 1
+      loop: 0
 --- !u!1 &3057560121282913837
 GameObject:
   m_ObjectHideFlags: 0
