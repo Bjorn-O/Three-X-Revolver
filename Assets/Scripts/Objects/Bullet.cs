@@ -146,7 +146,7 @@ public class Bullet : MonoBehaviour
                 break;
             case "Ricochet":
                 //TODO Ricochet sound effect
-                //SoundManager.instance.PlaySoundEffect("Bullet", "HitEnemy");
+                SoundManager.instance.PlaySoundEffect("Bullet", "Ricochet");
                 var ricochetDir = Vector2.Reflect(_rb.velocity.normalized, normal);
                 _rb.velocity = ricochetDir * _rb.velocity.magnitude;
                 if (TimeManager.instance.TimeScale >= 1)

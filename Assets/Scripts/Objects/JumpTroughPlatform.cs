@@ -15,7 +15,7 @@ public class JumpTroughPlatform : MonoBehaviour
     {
         platformCol = GetComponent<Collider2D>();
 
-        PlayerMovement player = FindObjectOfType<PlayerMovement>();
+        PlayerMovement player = FindObjectOfType<PlayerMovement>(true);
         player.OnCrouchStarted += OnPlayerCrouch;
         player.OnCrouchReleased += OnPlayerCrouchRelease;
     }
