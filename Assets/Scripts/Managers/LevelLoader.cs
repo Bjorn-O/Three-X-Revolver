@@ -62,7 +62,6 @@ public class LevelLoader : MonoBehaviour
                 OnLevelLoaded?.Invoke();
 
                 yield return null;
-                Debug.Log(DelayLoad);
                 yield return new WaitForSecondsRealtime(DelayLoad);
                 OnLoadingLevel = null;
                 OnLevelLoaded = null;
