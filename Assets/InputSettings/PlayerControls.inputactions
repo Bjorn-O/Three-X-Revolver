@@ -67,6 +67,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Quit",
+                    "type": "Button",
+                    "id": "55fbaee8-d77e-4b52-b58f-8165ac60f92b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -265,6 +274,17 @@
                     "processors": "",
                     "groups": "Keyboard",
                     "action": "Restart",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ea6c2dd9-ab42-4e46-afb5-df3c77962c72",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "Press(behavior=2)",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Quit",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
