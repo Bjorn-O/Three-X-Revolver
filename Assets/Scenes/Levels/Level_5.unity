@@ -6798,7 +6798,7 @@ PrefabInstance:
       objectReference: {fileID: 1564008730}
     - target: {fileID: 2146164510334455381, guid: 92b4e7d9272ca434ebc0c2d5aafd770f, type: 3}
       propertyPath: levelTime
-      value: 40
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 2146164510334455381, guid: 92b4e7d9272ca434ebc0c2d5aafd770f, type: 3}
       propertyPath: startGate
