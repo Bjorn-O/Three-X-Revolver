@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     public bool PlayerRestarted { get; set; } = false;
+    public float completionTime = 0;
 
     void Awake()
     {

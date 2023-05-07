@@ -77,7 +77,7 @@ public class LevelManager : MonoBehaviour
         }
         _timeRemaining -= Time.deltaTime;
         timerUI.text = TimeFormatter(_timeRemaining);
-
+        GameManager.instance.completionTime += Time.deltaTime;
     }
 
     public void StartLevel()
