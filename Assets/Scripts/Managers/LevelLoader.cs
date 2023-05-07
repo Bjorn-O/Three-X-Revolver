@@ -66,7 +66,9 @@ public class LevelLoader : MonoBehaviour
                 yield return new WaitForSecondsRealtime(DelayLoad);
                 OnLoadingLevel = null;
                 OnLevelLoaded = null;
-                SoundManager.instance.StopSoundEffect();
+                if (SoundManager.instance != null)
+                    SoundManager.instance.StopSoundEffect();
+                
                 asyncOperation.allowSceneActivation = true;
             }
 

@@ -1328,6 +1328,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 448261161836598481, guid: 70fcc2e89e7d56b41b803752cd9d33fc, type: 3}
+      propertyPath: sceneName
+      value: EndCutscene
+      objectReference: {fileID: 0}
     - target: {fileID: 448261161836598493, guid: 70fcc2e89e7d56b41b803752cd9d33fc, type: 3}
       propertyPath: m_Name
       value: SceneLoadTrigger
