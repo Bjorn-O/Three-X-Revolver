@@ -6,6 +6,7 @@ public class CutsceneLoadScene : MonoBehaviour
 {
     public void LoadMainMenu()
     {
+        GameManager.instance.completionTime = 0;
         LevelLoader.instance.LoadScene("Main Menu");
     }
 
